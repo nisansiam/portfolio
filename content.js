@@ -77,7 +77,8 @@ window.SITE = {
    {
     "img": ""
    }
-  ]
+  ],
+  "twSpeed": 2
  },
  "about": {
   "photo": "images/2a597r0pmxi-18pzq.png",
