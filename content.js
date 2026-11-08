@@ -50,6 +50,21 @@ window.SITE = {
     "name": "Younic Housing",
     "img": "images/1550oeyu5tj-14m6.png",
     "url": ""
+   },
+   {
+    "name": "Color Craze",
+    "img": "images/j8elgpcm8-11a6.png",
+    "url": "https://www.colorcrazebd.com/"
+   },
+   {
+    "name": "Kids Time",
+    "img": "images/in1r3xjxm6-1x06.png",
+    "url": "https://kidstimebd.com/"
+   },
+   {
+    "name": "Goofi",
+    "img": "images/1ydcoyv84a1-1j42.png",
+    "url": "https://goofiworld.com/"
    }
   ]
  },
