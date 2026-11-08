@@ -13,7 +13,7 @@ window.SITE = {
  "brands": {
   "title": "Brands I’ve worked with",
   "mono": false,
-  "speed": 3,
+  "speed": 6,
   "size": 80,
   "items": [
    {
