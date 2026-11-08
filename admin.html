@@ -4,60 +4,117 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Site editor</title>
+<title>Studio login — Siam Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f4f2;--card:#fff;--fg:#141414;--mute:#6b6b6b;--line:#d9d9d5;--ac:#141414;color-scheme:light dark}
-@media (prefers-color-scheme:dark){:root{--bg:#141414;--card:#202020;--fg:#f2f2f0;--mute:#9a9a9a;--line:#333;--ac:#fff}}
+:root{--bg:#0b0b0c;--card:#161618;--fg:#f2f1ee;--mute:#9b9992;--line:#2b2b2f;--ac:#f2b01e;--ac2:#ffd36b;--bad:#ff7a7a;--ok:#5be39a;color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
-.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.top b{font-size:18px;margin-right:auto}
-button,.btn{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:8px;padding:9px 14px;cursor:pointer;text-decoration:none;display:inline-block}
-button.pri,.btn.pri{background:var(--ac);color:var(--bg);border-color:var(--ac);font-weight:600}
-button.del{color:#c62828;border-color:#c62828}
-nav{display:flex;gap:8px;padding:14px 20px;flex-wrap:wrap}
-nav button.on{background:var(--ac);color:var(--bg)}
-main{max-width:900px;margin:0 auto;padding:0 20px 80px}
-.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
-h2{margin:0 0 6px;font-size:22px}h3{margin:18px 0 8px;font-size:17px}
-.hint{color:var(--mute);font-size:14px;margin:0 0 14px}
-label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
-label.ck{display:flex;gap:10px;align-items:center}
-input[type=text],input:not([type]),textarea{width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
-select{width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
-input[type=color]{width:64px;height:40px;padding:2px}
-textarea{min-height:100px;resize:vertical}
-.cm{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;display:grid;place-items:start center;padding:16px;overflow:auto}
-.cb{background:var(--card);color:var(--fg);border-radius:12px;padding:18px;max-width:640px;width:100%;margin:auto}
-.cb canvas{display:block;margin:12px auto;border-radius:8px;background:#888;touch-action:none;cursor:grab;max-width:100%}
-.rr button.on{background:var(--ac);color:var(--bg)}
+body{margin:0;color:var(--fg);font:15.5px/1.55 Manrope,system-ui,sans-serif;min-height:100vh;background:var(--bg) radial-gradient(60% 42% at 85% -8%,rgba(242,176,30,.11),transparent 70%),radial-gradient(50% 40% at 0% 100%,rgba(242,176,30,.05),transparent 70%) fixed}
+body::before,#lock::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:300;opacity:.07;background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body:not(.locked){display:grid;grid-template-columns:250px minmax(0,1fr);grid-template-rows:auto 1fr}
+.locked .top,.locked nav,.locked main{display:none}
+.top{grid-column:1/-1;position:sticky;top:0;z-index:40;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:14px 26px;background:rgba(11,11,12,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;gap:12px;margin-right:auto}
+.logo{font:400 26px/1 Anton,Impact,sans-serif;letter-spacing:.04em}.logo em{font-style:normal;color:transparent;-webkit-text-stroke:1px #fff}
+.tag{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ac);font-weight:700}
+#st{font-size:12.5px;color:var(--mute);padding:5px 12px;border:1px solid var(--line);border-radius:999px}#st:empty{display:none}
+button,.btn{font:inherit;font-weight:600;font-size:14px;border:1px solid var(--line);background:#1d1d20;color:var(--fg);border-radius:999px;padding:9px 18px;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
+button:hover,.btn:hover{border-color:#555;background:#252528}
+button.pri,.btn.pri{background:var(--ac);color:#141414;border-color:var(--ac);font-weight:700}
+button.pri:hover,.btn.pri:hover{background:var(--ac2);border-color:var(--ac2)}
+button.del{color:var(--bad);border-color:rgba(255,122,122,.45);background:transparent}
+nav{grid-row:2;grid-column:1;position:sticky;top:67px;align-self:start;height:calc(100vh - 67px);display:flex;flex-direction:column;gap:4px;padding:22px 14px;border-right:1px solid var(--line);overflow:auto}
+nav button{display:flex;align-items:center;gap:13px;width:100%;text-align:left;border:0;background:transparent;color:var(--mute);padding:11px 14px;border-radius:12px;font-size:14.5px}
+nav button::before{width:22px;text-align:center;font-size:16px;color:#6e6c66}
+nav button:nth-child(1)::before{content:'◈'}nav button:nth-child(2)::before{content:'⌂'}nav button:nth-child(3)::before{content:'☺'}nav button:nth-child(4)::before{content:'✦'}nav button:nth-child(5)::before{content:'▦'}nav button:nth-child(6)::before{content:'❖'}nav button:nth-child(7)::before{content:'✉'}nav button:nth-child(8)::before{content:'✧'}nav button:nth-child(9)::before{content:'⇪'}nav button:nth-child(10)::before{content:'⚿'}
+nav button:hover{background:#1b1b1e;color:var(--fg)}
+nav button.on{background:rgba(242,176,30,.12);color:var(--ac);box-shadow:inset 3px 0 0 var(--ac)}nav button.on::before{color:var(--ac)}
+main{grid-row:2;grid-column:2;width:100%;max-width:1000px;padding:30px 34px 100px}
+.box{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0) 60%),var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;margin-bottom:20px;box-shadow:0 24px 40px -28px #000}
+h2{font:400 28px/1.1 Anton,Impact,sans-serif;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px}
+h2::after{content:"";display:block;width:36px;height:3px;border-radius:2px;background:var(--ac);margin-top:10px}
+h3{margin:22px 0 8px;font-size:16px;letter-spacing:.02em}
+.hint{color:var(--mute);font-size:14px;margin:0 0 16px}
+label{display:block;font-weight:600;font-size:13px;letter-spacing:.03em;color:#c9c7c0;margin:14px 0 6px}
+label.ck{display:flex;gap:12px;align-items:center;color:var(--fg);font-size:14.5px;cursor:pointer}
+label.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:none;width:44px;height:25px;border-radius:999px;background:#323236;position:relative;cursor:pointer;transition:.2s;margin:0}
+label.ck input[type=checkbox]::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:.2s}
+label.ck input[type=checkbox]:checked{background:var(--ac)}label.ck input[type=checkbox]:checked::after{transform:translateX(19px);background:#141414}
+input[type=text],input[type=password],input:not([type]),textarea,select{width:100%;font:inherit;color:var(--fg);padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#0f0f11;transition:.2s}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px rgba(242,176,30,.18)}
+input[type=range]{width:100%;accent-color:var(--ac)}
+input[type=color]{width:64px;height:42px;padding:3px;border-radius:12px;background:#0f0f11;border:1px solid var(--line)}
+textarea{min-height:110px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+details{border:1px solid var(--line);border-radius:16px;margin-bottom:12px;background:var(--card);overflow:hidden}
+details[open]{border-color:#3a3a3f}
+summary{padding:14px 18px;cursor:pointer;font-weight:600;display:flex;gap:14px;align-items:center;list-style:none}summary::-webkit-details-marker{display:none}summary:hover{background:#1c1c1f}
+summary img{width:56px;height:40px;object-fit:cover;border-radius:8px;background:var(--line)}
+.inner{padding:4px 18px 18px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin-top:8px}.th{position:relative}
+.th img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}.th button{position:absolute;top:5px;right:5px;padding:2px 9px;font-size:13px;background:#000a}
+.big{max-width:240px}.steps li{margin:7px 0;color:#c9c7c0}.steps{color:var(--mute)}
+.cm{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(4px);z-index:400;display:grid;place-items:start center;padding:16px;overflow:auto}
+.cb{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:20px;padding:20px;max-width:640px;width:100%;margin:auto}
+.cb canvas{display:block;margin:12px auto;border-radius:10px;background:#888;touch-action:none;cursor:grab;max-width:100%}
+.rr button.on{background:var(--ac);color:#141414;border-color:var(--ac)}
 .cb canvas.tr{background:repeating-conic-gradient(#999 0 25%,#bbb 0 50%) 0 0/16px 16px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:860px){
+ body:not(.locked){grid-template-columns:1fr;grid-template-rows:auto auto 1fr}
+ .top{padding:12px 16px}.logo{font-size:22px}.tag{display:none}
+ nav{grid-column:1;grid-row:2;position:sticky;top:57px;z-index:30;height:auto;flex-direction:row;gap:6px;padding:10px 12px;border-right:0;border-bottom:1px solid var(--line);background:rgba(11,11,12,.92);backdrop-filter:blur(12px);overflow-x:auto}
+ nav button{width:auto;white-space:nowrap;padding:9px 14px}nav button::before{display:none}nav button.on{box-shadow:none}
+ main{grid-column:1;grid-row:3;padding:20px 16px 90px}.box{padding:20px;border-radius:16px}}
 @media(max-width:640px){.two{grid-template-columns:1fr}}
-details{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:var(--card)}
-summary{padding:14px 16px;cursor:pointer;font-weight:600;display:flex;gap:12px;align-items:center}
-summary img{width:48px;height:36px;object-fit:cover;border-radius:6px;background:var(--line)}
-.inner{padding:0 16px 16px}
-.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:8px}
-.th{position:relative}
-.th img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block}
-.th button{position:absolute;top:4px;right:4px;padding:2px 8px;font-size:13px}
-.big{max-width:240px}
-.steps li{margin:6px 0}
-#st{color:var(--mute);font-size:14px}
+#lock{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:20px;background:radial-gradient(55% 45% at 50% 0%,rgba(242,176,30,.16),transparent 70%),radial-gradient(70% 60% at 50% 60%,#171512,#09090a 70%)}
+.lk{position:relative;width:min(430px,100%);padding:42px 36px 34px;border-radius:24px;border:1px solid #2f2e2b;background:rgba(20,20,21,.86);backdrop-filter:blur(16px);box-shadow:0 40px 80px -30px #000,0 0 0 1px rgba(255,255,255,.03) inset}
+.lk::before{content:"";position:absolute;top:-1px;left:18%;right:18%;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent)}
+.lkb{font:400 40px/1 Anton,Impact,sans-serif;letter-spacing:.05em;text-align:center}.lkb em{font-style:normal;color:transparent;-webkit-text-stroke:1.2px #fff}
+.lks{text-align:center;color:var(--mute);font-size:13px;letter-spacing:.22em;text-transform:uppercase;margin:12px 0 26px}
+.lk button{width:100%;margin-top:22px;padding:14px;font-size:15px}
+#lkm{min-height:22px;margin:14px 0 0;text-align:center;font-size:14px;color:var(--bad)}
+.lkn{margin:6px 0 0;text-align:center;font-size:12px;color:#6f6d67}
 </style>
 </head>
-<body>
-<div class="top"><b>Site editor</b><span id="st"></span><a class="btn" href="index.html" target="_blank">Preview site</a><button class="pri" id="dl">Download content.js</button></div>
+<body class="locked">
+<div id="lock"><form class="lk" id="lkf"><div class="lkb">SIAM <em>DESIGN</em></div><p class="lks">Private studio</p><label for="lku">Username</label><input id="lku" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required><label for="lkp">Password</label><input id="lkp" type="password" autocomplete="current-password" required><button class="pri" id="lkb" type="submit">Sign in</button><p id="lkm" role="alert"></p><p class="lkn">Authorised access only</p></form></div>
+<div class="top"><div class="brand"><span class="logo">SIAM <em>DESIGN</em></span><span class="tag">Studio</span></div><span id="st"></span><a class="btn" href="index.html" target="_blank">Preview site</a><button class="pri" id="dl">Download content.js</button><button id="out" type="button">Log out</button></div>
 <nav id="tabs"></nav>
 <main id="ed"></main>
+<script src="admin-login.js"></script>
+<script>
+(function(){
+var L=window.ADMIN_LOGIN,lock=document.getElementById('lock'),msg=document.getElementById('lkm'),btn=document.getElementById('lkb'),enc=new TextEncoder(),FK='adm_f',ok;
+window.__unlock=new Promise(function(r){ok=r});
+function hex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,'0')}).join('')}
+function unhex(h){return new Uint8Array(h.match(/../g).map(function(x){return parseInt(x,16)}))}
+function derive(u,p,salt,it){return crypto.subtle.importKey('raw',enc.encode(u.trim().toLowerCase()+'\n'+p),'PBKDF2',false,['deriveBits']).then(function(k){return crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:unhex(salt),iterations:it},k,256)}).then(hex)}
+window.AdminLock={make:function(u,p,temp){var s=hex(crypto.getRandomValues(new Uint8Array(16))),it=210000;return derive(u,p,s,it).then(function(h){return 'window.ADMIN_LOGIN='+JSON.stringify({v:1,iter:it,salt:s,hash:h,temp:!!temp})+';\n'})}};
+function open(){document.body.classList.remove('locked');lock.remove();ok()}
+document.getElementById('out').onclick=function(){sessionStorage.removeItem('adm_s');location.reload()};
+if(!L||!L.hash){msg.textContent='Login file missing: upload admin-login.js next to admin.html.';btn.disabled=true;return}
+if(!window.crypto||!crypto.subtle){msg.textContent='This browser cannot check passwords here. Open the site over https.';btn.disabled=true;return}
+if(sessionStorage.getItem('adm_s')===L.hash.slice(0,16)){open();return}
+function fails(){try{return JSON.parse(localStorage.getItem(FK))||{n:0,until:0}}catch(e){return{n:0,until:0}}}
+function wait(){var left=Math.ceil((fails().until-Date.now())/1000);if(left>0){msg.textContent='Too many attempts. Try again in '+left+'s.';btn.disabled=true;setTimeout(wait,1000)}else{btn.disabled=false;if(/Too many/.test(msg.textContent))msg.textContent=''}}
+wait();
+document.getElementById('lkf').onsubmit=function(e){e.preventDefault();
+ if(fails().until>Date.now())return;btn.disabled=true;msg.textContent='';
+ derive(document.getElementById('lku').value,document.getElementById('lkp').value,L.salt,L.iter).then(function(h){
+  if(h===L.hash){localStorage.removeItem(FK);sessionStorage.setItem('adm_s',L.hash.slice(0,16));open();return}
+  var f=fails();f.n++;f.until=f.n>=3?Date.now()+Math.min(300,5*Math.pow(2,f.n-2))*1000:0;localStorage.setItem(FK,JSON.stringify(f));
+  msg.textContent='Wrong username or password.';document.getElementById('lkp').value='';btn.disabled=false;wait()})};
+})();
+</script>
 <script src="content.js"></script>
 <script src="site.js"></script>
 <script>
 (function(){
 var DB=window.SiteDB,S,tab='Site',t0;
-var tabs=['Site','Home','About','Services','Projects','Brands','Contact','Effects','Publish'];
+var tabs=['Site','Home','About','Services','Projects','Brands','Contact','Effects','Publish','Security'];
+tab=(window.ADMIN_LOGIN&&window.ADMIN_LOGIN.temp)?'Security':'Site';
 function el(h){var t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild}
 function save(){document.getElementById('st').textContent='Saving…';clearTimeout(t0);t0=setTimeout(function(){DB.set('draft',S).then(function(){document.getElementById('st').textContent='Saved in this browser (not live yet)'})},300)}
 function fld(o,k,label,area){var w=el('<div><label>'+label+'</label></div>'),i=el(area?'<textarea></textarea>':'<input type="text">');i.value=o[k]||'';i.oninput=function(){o[k]=i.value;save()};w.appendChild(i);return w}
@@ -274,12 +331,30 @@ function direct(m){
   b.appendChild(el('<h3>Create the token (one time)</h3>'));
   b.appendChild(el('<ol class="steps"><li>On github.com open your profile picture → <b>Settings</b> → <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>.</li><li>Name it “Portfolio admin” and set an expiry date.</li><li>Under <b>Repository access</b> choose <b>Only select repositories</b> and pick your portfolio repository.</li><li>Under <b>Permissions → Repository permissions</b> set <b>Contents</b> to <b>Read and write</b>.</li><li>Generate, copy the token, paste it above, and click <b>Publish now</b>.</li></ol><p class="hint">The token is stored only in this browser, never in your site files. Don’t use this on a shared computer. If it ever leaks, delete it on GitHub and make a new one.</p>'));
   w.appendChild(b)})}
+function dlText(name,txt){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/javascript'}));a.download=name;document.body.appendChild(a);a.click();a.remove()}
+function putFile(g,path,txt){var root='https://api.github.com/repos/'+encodeURIComponent(g.owner.trim())+'/'+encodeURIComponent(g.repo.trim())+'/contents/'+path,br=(g.branch||'main').trim(),hd={'Authorization':'Bearer '+g.token.trim(),'Accept':'application/vnd.github+json'};
+ return fetch(root+'?ref='+encodeURIComponent(br),{headers:hd}).then(function(r){return r.ok?r.json():null}).then(function(j){var body={message:'Update admin login',content:btoa(unescape(encodeURIComponent(txt))),branch:br};if(j&&j.sha)body.sha=j.sha;return fetch(root,{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},hd),body:JSON.stringify(body)})}).then(function(r){if(!r.ok)throw new Error('GitHub said '+r.status)})}
+views.Security=function(m){
+ var tmp=window.ADMIN_LOGIN&&window.ADMIN_LOGIN.temp,b=box('Your login',tmp?'You are still using the starting password. Choose your own username and password now.':'Change the username and password you use to open this editor.');
+ var f=el('<div class="two"></div>'),u=el('<div><label>New username</label><input type="text" autocomplete="username"></div>'),p=el('<div><label>New password (10+ characters)</label><input type="password" autocomplete="new-password"></div>'),p2=el('<div><label>Repeat the password</label><input type="password" autocomplete="new-password"></div>');
+ f.appendChild(u);f.appendChild(p);b.appendChild(f);b.appendChild(p2);
+ var s=el('<p class="hint" role="status"></p>'),r=el('<div class="row"></div>'),say=function(x){s.textContent=x};
+ r.appendChild(btn('Save my new login',function(){
+  var U=u.lastChild.value.trim(),P=p.lastChild.value;
+  if(!U||P.length<10){say('Use a username and a password of at least 10 characters.');return}
+  if(P!==p2.lastChild.value){say('The two passwords do not match.');return}
+  AdminLock.make(U,P,false).then(function(txt){DB.get('gh').then(function(g){
+   if(!g||!g.owner||!g.repo||!g.token){dlText('admin-login.js',txt);say('Downloaded admin-login.js. Upload it to your GitHub repository, replacing the old one. Your new login works once it is live. (Set up “Publish directly” in the Publish tab to do this in one click next time.)');return}
+   putFile(g,'admin-login.js',txt).then(function(){say('Done. Your new login goes live in a minute or two. Use it next time you sign in.')}).catch(function(e){dlText('admin-login.js',txt);say('Could not publish ('+e.message+'). The file was downloaded instead: upload it to GitHub.')})})})},'pri'));
+ b.appendChild(r);b.appendChild(s);
+ b.appendChild(el('<h3>Good to know</h3>'));b.appendChild(el('<p class="hint">This sign-in keeps casual visitors out of the editor. Nothing on the live site can be changed from here without your GitHub token, which is stored only in your own browser. Keep that token private, and use “Log out” on shared computers. If you ever forget the password, open make-login.html on your computer to create a new admin-login.js and upload it to GitHub.</p>'));
+ m.appendChild(b)};
 function draw(){
  var n=document.getElementById('tabs');n.innerHTML='';
  tabs.forEach(function(t){var b=btn(t,function(){tab=t;draw()},t===tab?'on':'');n.appendChild(b)});
  var m=document.getElementById('ed');m.innerHTML='';views[tab](m)}
 document.getElementById('dl').onclick=dl;
-DB.get('draft').then(function(d){S=(d&&d.brand&&d.projects)?d:JSON.parse(JSON.stringify(window.SITE));fix();
+window.__unlock.then(function(){return DB.get('draft')}).then(function(d){S=(d&&d.brand&&d.projects)?d:JSON.parse(JSON.stringify(window.SITE));fix();
  document.getElementById('st').textContent=d?'Editing your saved draft':'Editing the live version';draw()});
 })();
 </script>
