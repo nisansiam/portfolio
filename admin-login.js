@@ -1,1 +1,1 @@
-window.ADMIN_LOGIN={"v":1,"iter":210000,"salt":"4ed26632ab995ffc7596aa2b9d2e5a8d","hash":"01dbf35a2b35cea524ea49e59c08d461d864a09596aca409a2805a34c6745147","temp":false};
+window.ADMIN_LOGIN={"v":1,"iter":210000,"salt":"560e21903ad1e9153837f683978eff7f","hash":"c948dce767e51a5c85311904adf269ba22337e5bf1345796baad491dfa9fea39","temp":false};
