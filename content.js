@@ -32,6 +32,11 @@ window.SITE = {
     "url": "https://seitokashikoischool.com/"
    },
    {
+    "name": "Autopilot AI Solution",
+    "img": "images/1azgpsd2bet-1f9q.png",
+    "url": "https://autopilotaisolution.com/"
+   },
+   {
     "name": "Azul BD",
     "img": "images/58ycbbkwqg-30p2.png",
     "url": "https://www.facebook.com/azulbangladesh"
@@ -308,21 +313,34 @@ window.SITE = {
   },
   {
    "id": "shorodindu",
-   "title": "Shorodindu",
-   "summary": "Clothing brand packaging, stationery and social assets.",
-   "desc": "Shopping bag, product box, visiting card, official pad, envelope and Facebook cover.",
+   "title": "Theatre & Music Poster Design",
+   "summary": "Event and promotional posters for theatre productions and live music performances.",
+   "desc": "A collection of poster designs created for theatre productions and a live music event. The project features three posters representing two different theatrical productions and one concert poster.\n\nEach design explores a distinct visual direction, using typography, composition, imagery, and graphic elements to capture the atmosphere of the performance and communicate its identity to the audience.",
    "tags": [
-    "Branding",
-    "Packaging",
-    "Stationery"
+    "Poster Design",
+    "Theatre Poster",
+    "Concert Poster",
+    "Event Promotion",
+    "Cultural Design",
+    "Typography",
+    "Graphic Design",
+    "Print Design"
    ],
-   "client": "Shorodindu",
-   "date": "2026",
+   "client": "Independent Projects / Theatre & Music",
+   "date": "2022",
    "role": "Graphic designer",
    "featured": true,
-   "cover": "",
-   "images": [],
-   "color": "p4"
+   "cover": "images/rr58so10zz-71cj.jpg",
+   "images": [
+    "images/2ex3um1qght-3rkf.jpg",
+    "images/9nfzuzvwg9-3a7n.jpg",
+    "images/2c3tad303m2-18g7.jpg",
+    "images/16p0azqjq44-63zn.jpg"
+   ],
+   "color": "p4",
+   "brief": "Create visually compelling promotional posters that capture the essence of each production and musical event while attracting audience attention and communicating essential event information.",
+   "process": "Explored individual creative directions for each event, developing visual concepts through typography, image selection, layout composition, and graphic treatments. Each poster was designed to reflect the character and atmosphere of its respective performance.",
+   "result": "Three distinctive promotional posters representing two theatre productions and one live music concert, each with its own visual identity and communication approach."
   }
  ]
 };
