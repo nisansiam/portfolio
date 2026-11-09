@@ -365,7 +365,7 @@ window.SITE = {
    "client": "Younic Limited",
    "date": "2026",
    "role": "Graphic Designer — Creative Concept Development, Corporate Social Media Design, Visual Communication, Campaign & Recruitment Design.",
-   "featured": true,
+   "featured": false,
    "cover": "images/2eym6ye7fnx-5ai7.jpg",
    "images": [
     "images/5aw3ouiyz3-4bmz.jpg",
