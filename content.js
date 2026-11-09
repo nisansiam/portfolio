@@ -413,6 +413,51 @@ window.SITE = {
    "brief": "Create visually compelling promotional posters that capture the essence of each production and musical event while attracting audience attention and communicating essential event information.",
    "process": "Explored individual creative directions for each event, developing visual concepts through typography, image selection, layout composition, and graphic treatments. Each poster was designed to reflect the character and atmosphere of its respective performance.",
    "result": "Three distinctive promotional posters representing two theatre productions and one live music concert, each with its own visual identity and communication approach."
+  },
+  {
+   "id": "p1794198784481",
+   "title": "Magazine Design for Younic Home",
+   "summary": "Editorial design and layout development for Younic Home's brand magazine.",
+   "desc": "A magazine design project developed for Younic Home, focusing on editorial layout, visual storytelling, and brand communication. The project brings together structured content, typography, imagery, and graphic elements to create an engaging and cohesive reading experience.\n\nThe design balances informative content with visual appeal while maintaining consistency with Younic Home's brand identity.",
+   "tags": [
+    "Magazine Design",
+    "Editorial Design",
+    "Publication Design",
+    "Layout Design",
+    "Typography",
+    "Print Design",
+    "Brand Communication",
+    "Graphic Design"
+   ],
+   "client": "Younic Home",
+   "date": "2026",
+   "role": "Graphic Designer — Editorial Layout, Publication Design, Typography, Visual Composition & Print Design.",
+   "featured": true,
+   "cover": "images/2d0dbgzt11n-6667.jpg",
+   "images": [
+    "images/2d0dbgzt11n-6667.jpg",
+    "images/1sjftpmzton-3c47.jpg",
+    "images/1qbyvq1z3d3-1uj3.jpg",
+    "images/13ba3mwi6zf-54u3.jpg",
+    "images/1qb897u8da5-48nv.jpg",
+    "images/1auh0b84rgn-5uuz.jpg",
+    "images/g47sk4vuir-6cer.jpg",
+    "images/g48ypfwvho-59dr.jpg",
+    "images/j00vdpp4qz-3heb.jpg",
+    "images/9ce6k10j5z-6bvv.jpg",
+    "images/dcbnk8uhka-71nr.jpg",
+    "images/1zq2iijj09o-2q37.jpg",
+    "images/p6v157cj4w-3qfv.jpg",
+    "images/bk51s1mh9g-5alv.jpg",
+    "images/10nmwszsi2l-4hlb.jpg",
+    "images/sk7mldz1tf-361b.jpg",
+    "images/4095dnehrl-3hxz.jpg",
+    "images/11ehynhekvd-3mz7.jpg"
+   ],
+   "color": "p2",
+   "brief": "Create a well-structured and visually engaging magazine that communicates the brand's identity, presents relevant content, and provides readers with an enjoyable editorial experience.",
+   "process": "Worked on page layouts, typography, image placement, colour coordination, and content hierarchy. Developed a consistent editorial style that balances readability with visual interest while incorporating Younic Home's brand elements throughout the publication.",
+   "result": "A cohesive branded publication that extends Younic Home's visual identity into editorial design through structured layouts and consistent visual communication."
   }
  ]
 };
