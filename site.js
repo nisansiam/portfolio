@@ -57,6 +57,28 @@ function logoMq(){
 function aboutBlock(title,text,more){
  var A=S.about,ph=A.photo?'<img class="me" src="'+e(A.photo)+'" alt="'+e(S.brand.full)+'">':'';
  return '<div class="wrap abt'+(ph?'':' np')+'">'+ph+'<div><h2>'+rich(title)+'</h2>'+String(text||'').split('\n').filter(Boolean).map(function(t){return '<p>'+e(t)+'</p>'}).join('')+more+'</div></div>'}
+var PVIMGS=[],PVALT='';
+function pviewer(){
+ var v=document.querySelector('.pv');if(!v||!PVIMGS.length)return;
+ var im=v.querySelector('.pvi'),c=v.querySelector('.pvc'),n=PVIMGS.length,k=0,tok=0,vis=false,rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ function label(){c.textContent=(k+1)+' / '+n;im.alt=PVALT+' – photo '+(k+1)+' of '+n}
+ function warm(){[k+1,k-1].forEach(function(q){var y=new Image();y.src=PVIMGS[(q%n+n)%n]})}
+ function show(j){j=(j%n+n)%n;if(j===k)return;k=j;var t=++tok;label();
+  if(rm){im.src=PVIMGS[k];warm();return}
+  im.style.opacity=0;
+  setTimeout(function(){if(t!==tok)return;var x=new Image();x.onload=x.onerror=function(){if(t!==tok)return;im.src=PVIMGS[k];requestAnimationFrame(function(){im.style.opacity=1});warm()};x.src=PVIMGS[k]},150)}
+ im.src=PVIMGS[0];label();warm();
+ v.querySelector('.pvp').onclick=function(){show(k-1)};v.querySelector('.pvn').onclick=function(){show(k+1)};
+ document.addEventListener('keydown',function(ev){
+  if(n<2||(ev.key!=='ArrowLeft'&&ev.key!=='ArrowRight')||ev.ctrlKey||ev.metaKey||ev.altKey||ev.shiftKey)return;
+  if(/INPUT|TEXTAREA|SELECT/.test((ev.target&&ev.target.tagName)||''))return;
+  if(!vis&&document.activeElement!==v)return; /* only while the photos are on screen */
+  ev.preventDefault();show(k+(ev.key==='ArrowRight'?1:-1))});
+ var sx=0,sy=0,st=v.querySelector('.pvs');
+ st.addEventListener('pointerdown',function(ev){sx=ev.clientX;sy=ev.clientY});
+ st.addEventListener('pointerup',function(ev){var dx=ev.clientX-sx,dy=ev.clientY-sy;if(n>1&&Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(k+(dx<0?1:-1))});
+ if(!rm&&'IntersectionObserver' in window){var io=new IntersectionObserver(function(en){vis=en[0].isIntersecting;if(vis)v.classList.add('in')},{threshold:.2});io.observe(v)}else{vis=true;v.classList.add('in')}
+}
 function heroTW(H){if((H.heroStyle||'typewriter')!=='typewriter')return '';return '<div class="tw" data-tw><h1 class="twsr">'+rich(H.h1a)+' '+rich(H.h1b)+'</h1><div class="tws"></div><div class="twb">'+(H.avail?'<div class="av"><i></i>'+e(H.avail)+'</div>':'')+'<div class="btns"><a class="pill" href="work.html">See my work <i>↗</i></a><a class="pill ghost" href="about.html">About me <i>↗</i></a></div></div></div>'}
 function symCta(){var C=S.cta||{};if(C.on===false)return '';
  var d=function(k,v){return v==null||v===''?'':' data-sym-'+k+'="'+e(v)+'"'};
@@ -99,13 +121,14 @@ var views={
   document.title=p.title+' – '+S.brand.full+' ('+S.brand.name+')';
   var meta=[['Client',p.client],['Date',p.date],['Role',p.role]].filter(function(m){return m[1]}).map(function(m){return '<div><dt>'+m[0]+'</dt><dd>'+e(m[1])+'</dd></div>'}).join('');
   var secs=[['Overview',p.desc],['The brief',p.brief],['The process',p.process],['The result',p.result]].filter(function(x){return x[1]&&String(x[1]).trim()}).map(function(x,n){return '<div class="cs"><div class="csl"><span class="num">0'+(n+1)+'</span>'+x[0]+'</div><div class="cst">'+String(x[1]).split('\n').filter(Boolean).map(function(t){return '<p>'+e(t)+'</p>'}).join('')+'</div></div>'}).join('');
-  var gal=(p.images||[]).map(function(x){return '<img class="gi" src="'+e(x)+'" alt="'+e(p.title)+'" loading="lazy" decoding="async">'}).join('');
-  return '<section class="top pj"><div class="wrap"><a class="back" href="work.html">← All work</a><h1 class="pt">'+rich(p.title)+'</h1><p class="ps">'+e(p.summary)+'</p>'+tags(p.tags)+(meta?'<dl class="meta">'+meta+'</dl>':'')+
-   '<div class="pcov">'+(p.cover?'<img class="gi" src="'+e(p.cover)+'" alt="'+e(p.title)+'">':ph(p))+'</div>'+secs+(gal?'<div class="gals">'+gal+'</div>':'')+
+  PVIMGS=(p.images||[]).filter(Boolean);PVALT=p.title;var gal=PVIMGS.length?'<div class="pv'+(PVIMGS.length<2?' one':'')+'" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Project photos"><div class="pvs"><img class="pvi" alt=""></div><div class="pvbar"><button class="pvb pvp" type="button" aria-label="Previous photo">←</button><span class="pvc" aria-live="polite"></span><button class="pvb pvn" type="button" aria-label="Next photo">→</button></div><p class="pvh"><span class="pk">Use the ← → keys on your keyboard</span><span class="pt2">Swipe, or tap the arrows</span></p></div>':'';
+  return '<section class="top pj"><div class="wrap"><a class="back" href="work.html">← All work</a><div class="phd"><div class="pht"><h1 class="pt">'+rich(p.title)+'</h1><p class="ps">'+e(p.summary)+'</p>'+tags(p.tags)+(meta?'<dl class="meta">'+meta+'</dl>':'')+'</div>'+
+   '<div class="pcov">'+(p.cover?'<img class="gi" src="'+e(p.cover)+'" alt="'+e(p.title)+'">':ph(p))+'</div></div>'+secs+gal+
    (P.length>1?'<a class="next" href="project.html?p='+encodeURIComponent(nx.id)+'"><span class="dim">Next project</span><span class="nt">'+e(nx.title)+' <i>↗</i></span></a>':'')+'</div></section>';
  }
 };
 function wire(){
+ pviewer();
  var menu=document.getElementById('menu'),open=document.getElementById('open');
  function tog(v){menu.classList.toggle('open',v);open.setAttribute('aria-expanded',v);document.body.style.overflow=v?'hidden':''}
  open.onclick=function(){tog(true)};document.getElementById('close').onclick=function(){tog(false)};

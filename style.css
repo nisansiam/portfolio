@@ -196,3 +196,24 @@ body::after{content:"";position:fixed;inset:0;z-index:55;pointer-events:none;opa
 .wa:hover{transform:translateY(-3px)}
 .wa svg{width:24px;height:24px;fill:currentColor;flex:none}
 @media (max-width:560px){.wa span{display:none}.wa{padding:14px}}
+
+/* ---- project page: title left + cover right, and a one-at-a-time photo viewer ---- */
+.phd{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center;margin-bottom:clamp(36px,5vw,72px)}
+.pht .pt{margin-top:16px}
+.phd .pcov{margin:0;justify-self:end;width:100%}
+.phd .pcov .gi{width:auto;height:auto;max-width:100%;max-height:min(70vh,620px);margin-left:auto}
+.pv{position:relative;margin:clamp(40px,6vw,88px) auto 0;width:100%;opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);outline:0}
+.pv.in{opacity:1;transform:none}
+.pvs{height:clamp(300px,74vh,860px);display:flex;align-items:center;justify-content:center;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.pvi{display:block;width:auto;height:auto;max-width:min(100%,1080px);max-height:100%;border-radius:12px;object-fit:contain;transition:opacity .22s ease;-webkit-user-drag:none}
+.pvbar{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:22px}
+.pvb{width:50px;height:50px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);font:500 20px/1 Manrope,sans-serif;cursor:pointer;display:grid;place-items:center;transition:background .2s,color .2s,border-color .2s}
+.pvb:hover,.pvb:focus-visible{background:var(--fg);color:var(--bg);border-color:var(--fg);outline:0}
+.pvc{min-width:70px;text-align:center;font:600 14px Manrope,sans-serif;letter-spacing:.16em;color:var(--mute)}
+.pvh{margin:14px 0 0;text-align:center;font-size:13px;color:var(--mute);opacity:.8}
+.pvh .pt2{display:inline}.pvh .pk{display:none}
+@media (hover:hover) and (pointer:fine){.pvh .pk{display:inline}.pvh .pt2{display:none}}
+.pv.one .pvbar,.pv.one .pvh{display:none}
+@media(max-width:860px){.phd{grid-template-columns:1fr;gap:28px}.phd .pcov{justify-self:start}.phd .pcov .gi{margin-left:0}}
+@media(max-width:640px){.pvs{height:auto;min-height:200px}.pvi{max-width:100%;max-height:62vh}.pvb{width:46px;height:46px}}
+@media (prefers-reduced-motion:reduce){.pv,.pvi{transition:none}.pv{opacity:1;transform:none}}
