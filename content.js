@@ -70,8 +70,8 @@ window.SITE = {
  },
  "home": {
   "h1a": "Hey, I’m Siam,",
-  "h1b": "a graphic *designer*",
-  "intro": "Creating visual identities, marketing designs, editorial layouts and illustrations from Dhaka, Bangladesh.",
+  "h1b": "A Graphic Designer",
+  "intro": "Creating Visual Identities, Marketing Designs, Editorial Layouts and Illustrations from Dhaka, Bangladesh.",
   "teaserTitle": "A little about *me*.",
   "teaserText": "I'm Aflahal Muminun Siam — a graphic designer driven by curiosity and a passion for visual communication. I work across branding, marketing, editorial and digital design, turning ideas into thoughtful visual experiences. I believe good design is more than aesthetics; it's about communicating ideas with clarity, purpose and creativity.",
   "featTitle": "Selected *work*",
