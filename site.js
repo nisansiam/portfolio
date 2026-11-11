@@ -10,7 +10,7 @@ if(!page)return;
 function e(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function rich(t){return e(t).replace(/\*([^*]+)\*/g,'<em class="sf">$1</em>')}
 var S,drafted=false,reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-function bg(p){return p.cover?' img" style="background-image:url(&quot;'+e(p.cover)+'&quot;)':' '+e(p.color||'p1')}
+function bg(p){return p.cover?' img" style="background-image:url(&quot;'+e(ts(p.cover))+'&quot;)':' '+e(p.color||'p1')}
 function ph(p,cls){return '<div class="'+(cls||'ph')+bg(p)+'">'+(p.cover?'':e(p.title))+'</div>'}
 function tags(a){return '<div class="tags">'+(a||[]).map(function(t){return '<span class="tag">'+e(t)+'</span>'}).join('')+'</div>'}
 function card(p,link,i){
@@ -23,7 +23,7 @@ function logo(){var B=S.brand,m=B.logoMode||'text',h='';
  return '<a class="logo" href="index.html" aria-label="Home">'+h+'</a>'}
 function pic2(p,i){
  if(S.layout==='natural'){
-  if(p.cover)return '<img class="nat" src="'+e(p.cover)+'" alt="'+e(p.title)+'" loading="lazy">';
+  if(p.cover)return '<img class="nat" src="'+e(ts(p.cover))+'" alt="'+e(p.title)+'" loading="lazy" decoding="async">';
   return '<div class="ph '+e(p.color||'p1')+'" style="aspect-ratio:'+['4/5','1/1','3/4','16/10'][i%4]+'">'+e(p.title)+'</div>';
  }
  return ph(p)}
@@ -55,7 +55,7 @@ function logoMq(){
   tr.style.animationDuration=(tr.scrollWidth/2/(sp*20))+'s'});
 }
 function aboutBlock(title,text,more){
- var A=S.about,ph=A.photo?'<img class="me" src="'+e(A.photo)+'" alt="'+e(S.brand.full)+'">':'';
+ var A=S.about,ph=A.photo?'<img class="me" src="'+e(ts(A.photo))+'" alt="'+e(S.brand.full)+'">':'';
  return '<div class="wrap abt'+(ph?'':' np')+'">'+ph+'<div><h2>'+rich(title)+'</h2>'+String(text||'').split('\n').filter(Boolean).map(function(t){return '<p>'+e(t)+'</p>'}).join('')+more+'</div></div>'}
 var PVIMGS=[],PVALT='';
 function pviewer(){
@@ -79,6 +79,7 @@ function pviewer(){
  st.addEventListener('pointerup',function(ev){var dx=ev.clientX-sx,dy=ev.clientY-sy;if(n>1&&Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(k+(dx<0?1:-1))});
  if(!rm&&'IntersectionObserver' in window){var io=new IntersectionObserver(function(en){vis=en[0].isIntersecting;if(vis)v.classList.add('in')},{threshold:.2});io.observe(v)}else{vis=true;v.classList.add('in')}
 }
+function ts(u){var T=S&&S.thumbs;return (T&&T[u])||u}
 function heroTW(H){if((H.heroStyle||'typewriter')!=='typewriter')return '';return '<div class="tw" data-tw><h1 class="twsr">'+rich(H.h1a)+' '+rich(H.h1b)+'</h1><div class="tws"></div><div class="twb">'+(H.avail?'<div class="av"><i></i>'+e(H.avail)+'</div>':'')+'<div class="btns"><a class="pill" href="work.html">See my work <i>↗</i></a><a class="pill ghost" href="about.html">About me <i>↗</i></a></div></div></div>'}
 function symCta(){var C=S.cta||{};if(C.on===false)return '';
  var d=function(k,v){return v==null||v===''?'':' data-sym-'+k+'="'+e(v)+'"'};
@@ -94,7 +95,7 @@ function waBtn(){var u=waUrl();if(!u||(S.contact&&S.contact.waFloat===false))ret
 var views={
  home:function(){
   var H=S.home,F=featured(),fl=(H.floats||[]).slice(0,10).map(function(q,i){var d=' data-s="'+[.06,-.04,.09,-.07,.05,-.05,.08,-.09,.04,-.06][i]+'"';
-   return q.img?'<div class="fl f'+(i+1)+' has"'+d+'><img src="'+e(q.img)+'" alt=""></div>':'<div class="fl f'+(i+1)+' p'+(i%4+1)+'"'+d+'></div>'}).join('');
+   return q.img?'<div class="fl f'+(i+1)+' has"'+d+'><img src="'+e(ts(q.img))+'" alt=""></div>':'<div class="fl f'+(i+1)+' p'+(i%4+1)+'"'+d+'></div>'}).join('');
   return (heroTW(H)||'<div class="hero wrap'+((H.heroMode||'3d')==='3d'?' d3':'')+'"><div class="stage">'+fl+'</div><div class="hbox" style="--bo:'+(H.boxOpacity==null?.4:H.boxOpacity)+'">'+(H.avail?'<div class="av"><i></i>'+e(H.avail)+'</div>':'')+'<h1>'+rich(H.h1a)+'<br><span class="mu">'+rich(H.h1b)+'</span></h1><p>'+e(H.intro)+'</p></div><div class="btns"><a class="pill" href="work.html">See my work <i>↗</i></a><a class="pill ghost" href="about.html">About me <i>↗</i></a></div></div>')+
   '<section><div class="wrap"><div class="center"><h2>'+rich(H.featTitle)+'</h2><p>'+e(H.featText)+'</p></div><div class="projects'+(S.layout==='natural'?' mas':'')+'">'+F.map(function(p,i){return card(p,true,i)}).join('')+'</div><div class="more"><a class="pill" href="work.html">View more <i>↗</i></a></div></div></section>'+brandsSec()+servicesSec()+
   '<section>'+aboutBlock(H.teaserTitle,H.teaserText,'<div class="btns" style="justify-content:flex-start;margin-top:32px"><a class="pill" href="about.html">More about me <i>↗</i></a>'+cvBtn()+'</div>')+'</section>'+symCta()+marquee();
@@ -123,7 +124,7 @@ var views={
   var secs=[['Overview',p.desc],['The brief',p.brief],['The process',p.process],['The result',p.result]].filter(function(x){return x[1]&&String(x[1]).trim()}).map(function(x,n){return '<div class="cs"><div class="csl"><span class="num">0'+(n+1)+'</span>'+x[0]+'</div><div class="cst">'+String(x[1]).split('\n').filter(Boolean).map(function(t){return '<p>'+e(t)+'</p>'}).join('')+'</div></div>'}).join('');
   PVIMGS=(p.images||[]).filter(Boolean);PVALT=p.title;var gal=PVIMGS.length?'<div class="pv'+(PVIMGS.length<2?' one':'')+'" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Project photos"><div class="pvs"><img class="pvi" alt=""></div><div class="pvbar"><button class="pvb pvp" type="button" aria-label="Previous photo">←</button><span class="pvc" aria-live="polite"></span><button class="pvb pvn" type="button" aria-label="Next photo">→</button></div><p class="pvh"><span class="pk">Use the ← → keys on your keyboard</span><span class="pt2">Swipe, or tap the arrows</span></p></div>':'';
   return '<section class="top pj"><div class="wrap"><a class="back" href="work.html">← All work</a><div class="phd"><div class="pht"><h1 class="pt">'+rich(p.title)+'</h1><p class="ps">'+e(p.summary)+'</p>'+tags(p.tags)+(meta?'<dl class="meta">'+meta+'</dl>':'')+'</div>'+
-   '<div class="pcov">'+(p.cover?'<img class="gi" src="'+e(p.cover)+'" alt="'+e(p.title)+'">':ph(p))+'</div></div>'+secs+gal+
+   '<div class="pcov">'+(p.cover?'<img class="gi" src="'+e(ts(p.cover))+'" alt="'+e(p.title)+'">':ph(p))+'</div></div>'+secs+gal+
    (P.length>1?'<a class="next" href="project.html?p='+encodeURIComponent(nx.id)+'"><span class="dim">Next project</span><span class="nt">'+e(nx.title)+' <i>↗</i></span></a>':'')+'</div></section>';
  }
 };

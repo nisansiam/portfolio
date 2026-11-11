@@ -154,7 +154,7 @@ function ck(o,k,label){var w=el('<label class="ck"><input type="checkbox"> '+lab
 function box(title,hint){return el('<div class="box"><h2>'+title+'</h2><p class="hint">'+(hint||'')+'</p></div>')}
 function add(p,list){list.forEach(function(x){p.appendChild(x)});return p}
 function btn(t,fn,c){var b=el('<button class="'+(c||'')+'">'+t+'</button>');b.onclick=fn;return b}
-function pic(file){return new Promise(function(ok){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);var x=c.getContext('2d');var a=hasA(im);if(!a){x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height)}x.drawImage(im,0,0,c.width,c.height);ok(a?c.toDataURL('image/png'):c.toDataURL('image/jpeg',.82))};im.src=r.result};r.readAsDataURL(file)})}
+function pic(file){return new Promise(function(ok){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);var x=c.getContext('2d');var a=hasA(im);if(!a){x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height)}x.drawImage(im,0,0,c.width,c.height);ok(enc(c,a,a?.9:.85))};im.src=r.result};r.readAsDataURL(file)})}
 var RC=[['Card 16:10',1.6],['4:3',1.3333],['1:1',1],['4:5',.8],['Whole image',0]],RE=[['Whole image',0],['4:3',1.3333],['16:10',1.6],['1:1',1],['3:4',.75]],RF=[['Whole image',0],['4:5',.8],['1:1',1],['3:4',.75],['4:3',1.3333]],SL=[.8,1,1.3333,1,1,.75,1,.8,1.3333,1],RL=[['Whole image',0],['1:1',1],['3:2',1.5],['3:1',3]],RP=[['4:5',.8],['1:1',1],['3:4',.75],['Whole image',0]];
 function crop(file,ro,n,total){return new Promise(function(done){
  var rd=new FileReader();rd.onerror=function(){done(null)};rd.onload=function(){var im=new Image();im.onerror=function(){alert('That image could not be read. Try a JPG or PNG.');done(null)};im.onload=function(){
@@ -174,7 +174,7 @@ function crop(file,ro,n,total){return new Promise(function(done){
   function end(v){document.removeEventListener('keydown',esc);document.body.removeChild(o);(ro.trim&&v?trim(v):Promise.resolve(v)).then(done)}
   function esc(e){if(e.key==='Escape')end(null)}document.addEventListener('keydown',esc);
   var ac=o.lastChild.lastChild;
-  ac.appendChild(btn('Crop and save',function(){var g=geom(),k=Math.min((ro.max||(png?(ro.png?800:1200):1600))/cw,1/g.sc),c=document.createElement('canvas');c.width=Math.round(cw*k);c.height=Math.round(ch*k);var x=c.getContext('2d');if(!png){x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height)}x.drawImage(im,g.x*k,g.y*k,g.w*k,g.h*k);end(png?c.toDataURL('image/png'):c.toDataURL('image/jpeg',.85))},'pri'));
+  ac.appendChild(btn('Crop and save',function(){var g=geom(),k=Math.min((ro.max||(png?(ro.png?800:1200):1600))/cw,1/g.sc),c=document.createElement('canvas');c.width=Math.round(cw*k);c.height=Math.round(ch*k);var x=c.getContext('2d');if(!png){x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height)}x.drawImage(im,g.x*k,g.y*k,g.w*k,g.h*k);end(enc(c,png,png?.9:.86))},'pri'));
   ac.appendChild(btn('Use whole image',function(){(ro.png?lpic:pic)(file).then(end)}));
   ac.appendChild(btn(total>1?'Skip this image':'Cancel',function(){end(null)}));
   document.body.appendChild(o);draw()};im.src=rd.result};rd.readAsDataURL(file)})}
@@ -321,21 +321,21 @@ function h53(s){var a=0xdeadbeef,b=0x41c6ce57,c,i;for(i=0;i<s.length;i++){c=s.ch
 function walk(o,fn){if(Array.isArray(o)){o.forEach(function(v,i){if(typeof v==='string')o[i]=fn(v);else walk(v,fn)})}else if(o&&typeof o==='object'){Object.keys(o).forEach(function(k){var v=o[k];if(typeof v==='string')o[k]=fn(v);else walk(v,fn)})}}
 function gh(g,st){
  var root='https://api.github.com/repos/'+encodeURIComponent(g.owner.trim())+'/'+encodeURIComponent(g.repo.trim())+'/contents/',br=(g.branch||'main').trim(),
- hd={'Authorization':'Bearer '+g.token.trim(),'Accept':'application/vnd.github+json'},jh=Object.assign({'Content-Type':'application/json'},hd),D=clean(),map={},list=[];
+ hd={'Authorization':'Bearer '+g.token.trim(),'Accept':'application/vnd.github+json'},jh=Object.assign({'Content-Type':'application/json'},hd),D=clean(),map={},list=[],tmap={};
  function bad(r){var e=new Error('');e.status=r.status;return r.json().then(function(x){e.message=x.message||'';throw e},function(){throw e})}
- walk(D,function(v){var m=/^data:(image\/(png|jpeg)|application\/pdf);base64,/.exec(v);if(m&&!map[v]){var pdf=m[1]==='application/pdf';map[v]=(pdf?'files/':'images/')+h53(v)+'-'+v.length.toString(36)+'.'+(pdf?'pdf':m[1]==='image/png'?'png':'jpg');list.push(v)}return v});
+ walk(D,function(v){var m=/^data:(image\/(png|jpeg|webp)|application\/pdf);base64,/.exec(v);if(m&&!map[v]){var pdf=m[1]==='application/pdf';map[v]=(pdf?'files/':'images/')+h53(v)+'-'+v.length.toString(36)+'.'+(pdf?'pdf':m[1]==='image/png'?'png':m[1]==='image/webp'?'webp':'jpg');list.push(v)}return v});
  walk(D,function(v){return map[v]||v});
  st('Checking the repository…');
  function dir(n){return fetch(root+n+'?ref='+encodeURIComponent(br),{headers:hd}).then(function(r){if(r.status===404)return [];if(!r.ok)return bad(r);return r.json()}).then(function(a){return (Array.isArray(a)?a:[]).map(function(f){return n+'/'+f.name})})}
- return Promise.all([dir('images'),dir('files')]).then(function(ex){
+ return thumbsFor(list,window.__tp||{},st).then(function(td){addThumbs(D,map,list,td,window.__tp||{},tmap);return Promise.all([dir('images'),dir('files')])}).then(function(ex){
   var have={};ex[0].concat(ex[1]).forEach(function(p){have[p]=1});
-  var todo=list.filter(function(v){return !have[map[v]]}),ch=Promise.resolve();
-  todo.forEach(function(v,n){ch=ch.then(function(){st('Uploading image '+(n+1)+' of '+todo.length+'…');return fetch(root+map[v],{method:'PUT',headers:jh,body:JSON.stringify({message:'Add image',content:v.split(',')[1],branch:br})}).then(function(r){if(!r.ok&&r.status!==422)return bad(r)})})});
+  var ups=list.map(function(v){return {p:map[v],d:v}}).concat(Object.keys(tmap).map(function(p){return {p:p,d:tmap[p]}})),todo=ups.filter(function(u){return !have[u.p]}),ch=Promise.resolve();
+  todo.forEach(function(u,n){ch=ch.then(function(){st('Uploading image '+(n+1)+' of '+todo.length+'…');return fetch(root+u.p,{method:'PUT',headers:jh,body:JSON.stringify({message:'Add image',content:u.d.split(',')[1],branch:br})}).then(function(r){if(!r.ok&&r.status!==422)return bad(r)})})});
   return ch}).then(function(){
   st('Uploading your edits…');
   return fetch(root+'content.js?ref='+encodeURIComponent(br),{headers:hd}).then(function(r){if(r.status===404)return null;if(!r.ok)return bad(r);return r.json()})}).then(function(j){
   var o={message:'Update site content from admin panel',content:b64('window.SITE = '+JSON.stringify(D,null,1)+';\n'),branch:br};if(j&&j.sha)o.sha=j.sha;
-  return fetch(root+'content.js',{method:'PUT',headers:jh,body:JSON.stringify(o)})}).then(function(r){if(r.ok){st('Published. The live site updates in a minute or two.');return}return bad(r)})}
+  return fetch(root+'content.js',{method:'PUT',headers:jh,body:JSON.stringify(o)})}).then(function(r){if(r.ok){S.thumbs=D.thumbs;save();st('Published. The live site updates in a minute or two.');return}return bad(r)})}
 function direct(m){
  var w=document.createElement('div');m.appendChild(w);
  DB.get('gh').then(function(g){g=g||{owner:'',repo:'',branch:'main',token:''};
@@ -368,6 +368,55 @@ function loginBox(m){
  b.appendChild(r);b.appendChild(s);
  b.appendChild(el('<h3>Good to know</h3>'));b.appendChild(el('<p class="hint">This sign-in keeps casual visitors out of the editor. Nothing on the live site can be changed from here without your GitHub token, which is stored only in your own browser. Keep that token private, and use “Log out” on shared computers. If you ever forget the password, open make-login.html on your computer to create a new admin-login.js and upload it to GitHub.</p>'));
  m.appendChild(b)};
+/* ---- image speed: WebP output, lighter copies for cards/covers, one-click optimizer for existing images ---- */
+function enc(c,a,q){var u=c.toDataURL('image/webp',q);return u.indexOf('data:image/webp')===0?u:(a?c.toDataURL('image/png'):c.toDataURL('image/jpeg',.85))}
+function thumbOf(v){return new Promise(function(ok){if(v.indexOf('data:image/')!==0)return ok(null);var im=new Image();im.onload=function(){var L=Math.max(im.width,im.height);if(L<=1300)return ok(null);var k=1200/L,c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);var u=c.toDataURL('image/webp',.82);ok(u.indexOf('data:image/webp')===0?u:null)};im.onerror=function(){ok(null)};im.src=v})}
+function thumbsFor(list,tp,st){var td={},ch=Promise.resolve(),todo=list.filter(function(v){return !tp[v]&&v.indexOf('data:image/')===0});
+ todo.forEach(function(v,n){ch=ch.then(function(){st('Preparing lighter copies ('+(n+1)+' of '+todo.length+')…');return thumbOf(v).then(function(t){td[v]=t})})});
+ return ch.then(function(){list.forEach(function(v){if(tp[v])td[v]=tp[v]});return td})}
+function addThumbs(D,map,list,td,tp,tmap){
+ D.thumbs=D.thumbs||{};
+ list.forEach(function(v){var t=td[v];if(t){var p=map[v].replace(/\.[a-z]+$/,'')+'-s.webp';D.thumbs[map[v]]=p;tmap[p]=t}});
+ Object.keys(tp).forEach(function(k){if(map[k])return;var t=tp[k],p='images/'+h53(t)+'-s.webp';D.thumbs[k]=p;tmap[p]=t});
+ var T=D.thumbs,used={};delete D.thumbs;walk(JSON.parse(JSON.stringify(D)),function(v){used[v]=1;return v});D.thumbs=T;
+ Object.keys(T).forEach(function(k){if(!used[k])delete T[k]})}
+function mb(n){return (n/1048576).toFixed(1)+' MB'}
+function readURL(b){return new Promise(function(ok){var r=new FileReader();r.onload=function(){ok(r.result)};r.readAsDataURL(b)})}
+function toWebp(c,q){return new Promise(function(ok){c.toBlob(function(b){ok(b&&b.type==='image/webp'?b:null)},'image/webp',q)})}
+function imgRefs(){var set={};walk(JSON.parse(JSON.stringify(S)),function(v){if(/^images\/[^\s"]+\.(jpe?g|png)$/i.test(v)||/^data:image\/(png|jpeg);base64,/.test(v))set[v]=1;return v});return Object.keys(set)}
+function optOne(u){
+ return fetch(u.indexOf('data:')===0?u:u+(u.indexOf('?')<0?'?':'&')+'v='+Date.now()).then(function(r){if(!r.ok)throw new Error('missing');return r.blob()}).then(function(blob){
+  var before=blob.size,png=/png/.test(blob.type);
+  return createImageBitmap(blob).then(function(bm){
+   var L=Math.max(bm.width,bm.height),s=Math.min(1,1600/L),c=document.createElement('canvas');c.width=Math.round(bm.width*s);c.height=Math.round(bm.height*s);c.getContext('2d').drawImage(bm,0,0,c.width,c.height);
+   var r={url:u,before:before,after:before,newData:null,thumb:null,tsize:0};
+   return (before<61440?Promise.resolve(null):toWebp(c,png?.92:.85)).then(function(w){if(w&&w.size<before*.88){r.after=w.size;return readURL(w).then(function(d){r.newData=d})}}).then(function(){
+    if(L<=1300)return;var t=document.createElement('canvas'),k=1200/L;t.width=Math.round(bm.width*k);t.height=Math.round(bm.height*k);t.getContext('2d').drawImage(bm,0,0,t.width,t.height);
+    return toWebp(t,.82).then(function(tb){if(tb){r.tsize=tb.size;return readURL(tb).then(function(d){r.thumb=d})}})}).then(function(){return r})})})}
+function speedBox(m){
+ var b=box('Image speed','Re-saves your existing images as WebP and makes a lighter copy for the small cards and covers, so pages load faster. They look the same. Your current image files are not deleted, and nothing goes live until you press the second button.');
+ var s=el('<p class="hint" role="status"></p>'),say=function(x){s.textContent=x},rows=null,busy=false,r=el('<div class="row"></div>');
+ var go=btn('Optimize and publish',function(){
+  if(busy||!rows)return;
+  DB.get('gh').then(function(g){
+   if(!g||!g.owner||!g.repo||!g.token){say('Set up “Publish directly” in the Publish tab first, then come back here.');return}
+   busy=true;dlText('content-backup.js',out());
+   var tp={};rows.forEach(function(q){if(q.newData)walk(S,function(v){return v===q.url?q.newData:v});if(q.thumb)tp[q.newData||q.url]=q.thumb});
+   window.__tp=tp;save();
+   gh(g,say).then(function(){window.__tp=null;busy=false;go.style.display='none';rows=null}).catch(function(x){window.__tp=null;busy=false;say('Could not publish: '+(x.message||'please try again.')+' Your live site was not changed.')})})},'pri');
+ go.style.display='none';
+ r.appendChild(btn('Check my images',function(){
+  if(busy)return;busy=true;go.style.display='none';rows=null;var refs=imgRefs(),res=[],i=0;
+  if(!refs.length){say('There are no images to optimize yet.');busy=false;return}
+  (function next(){
+   if(i>=refs.length){var B=0,A=0,cv=0,th=0,ts=0;res.forEach(function(q){B+=q.before;A+=q.after;if(q.newData)cv++;if(q.thumb){th++;ts+=q.after-q.tsize}});
+    rows=res;busy=false;go.style.display='';
+    say('Found '+res.length+' images ('+mb(B)+' in total). After converting: '+mb(A)+(B?' ('+Math.round((1-A/B)*100)+'% smaller)':'')+'. '+cv+' will be converted; the others are already small or would not get smaller, so they stay as they are. Lighter copies for '+th+' images will save about '+mb(ts)+' more each time the Work or Home page loads. Happy with that? Press “Optimize and publish”.');return}
+   say('Checking image '+(i+1)+' of '+refs.length+'…');var u=refs[i++];
+   optOne(u).then(function(q){res.push(q);next()}).catch(function(){res.push({url:u,before:0,after:0,newData:null,thumb:null,tsize:0});next()})})()},''));
+ r.appendChild(go);b.appendChild(r);b.appendChild(s);
+ b.appendChild(el('<p class="hint">New uploads are shrunk and saved as WebP automatically, with no action needed. Before publishing, this tool downloads a backup copy of your content.</p>'));
+ m.appendChild(b)}
 function brandBox(m){
  var cur=window.AdminBrand.current(),b=box('Panel header','The name or logo shown at the top of this editor and on the sign-in page. Show it as text, or upload your own logo.');
  var pv=el('<div class="pv"></div>'),s=el('<p class="hint" role="status"></p>'),say=function(x){s.textContent=x};
@@ -399,7 +448,7 @@ function brandBox(m){
  b.appendChild(r2);b.appendChild(s);m.appendChild(b)}
 views.Settings=function(m){
  var tmp=window.ADMIN_LOGIN&&window.ADMIN_LOGIN.temp;
- if(tmp){loginBox(m);brandBox(m)}else{brandBox(m);loginBox(m)}};
+ if(tmp){loginBox(m);brandBox(m)}else{brandBox(m);loginBox(m)}speedBox(m)};
 function draw(){
  var n=document.getElementById('tabs');n.innerHTML='';
  tabs.forEach(function(t){var b=btn(t,function(){tab=t;draw()},t===tab?'on':'');n.appendChild(b)});
