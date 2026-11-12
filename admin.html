@@ -68,19 +68,20 @@ summary img{width:56px;height:40px;object-fit:cover;border-radius:8px;background
  nav button{width:auto;white-space:nowrap;padding:9px 14px}nav button::before{display:none}nav button.on{box-shadow:none}
  main{grid-column:1;grid-row:3;padding:20px 16px 90px}.box{padding:20px;border-radius:16px}}
 @media(max-width:640px){.two{grid-template-columns:1fr}}
-#lock{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:20px;background:radial-gradient(55% 45% at 50% 0%,rgba(242,176,30,.16),transparent 70%),radial-gradient(70% 60% at 50% 60%,#171512,#09090a 70%)}
-.lk{position:relative;width:min(430px,100%);padding:42px 36px 34px;border-radius:24px;border:1px solid #2f2e2b;background:rgba(20,20,21,.86);backdrop-filter:blur(16px);box-shadow:0 40px 80px -30px #000,0 0 0 1px rgba(255,255,255,.03) inset}
+#lock{position:fixed;inset:0;z-index:500;display:flex;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px;background:radial-gradient(55% 45% at 50% 0%,rgba(242,176,30,.16),transparent 70%),radial-gradient(70% 60% at 50% 60%,#171512,#09090a 70%)}
+.lk{position:relative;margin:auto;flex:none;width:min(430px,100%);padding:42px 36px 34px;border-radius:24px;border:1px solid #2f2e2b;background:rgba(20,20,21,.86);backdrop-filter:blur(16px);box-shadow:0 40px 80px -30px #000,0 0 0 1px rgba(255,255,255,.03) inset}
 .lk::before{content:"";position:absolute;top:-1px;left:18%;right:18%;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent)}
 .lkb{font:400 40px/1 Anton,Impact,sans-serif;letter-spacing:.05em;text-align:center}.lkb em{font-style:normal;color:transparent;-webkit-text-stroke:1.2px #fff}
 .lks{text-align:center;color:var(--mute);font-size:13px;letter-spacing:.22em;text-transform:uppercase;margin:12px 0 26px}
 .lk button{width:100%;margin-top:22px;padding:14px;font-size:15px}
 #lkm{min-height:22px;margin:14px 0 0;text-align:center;font-size:14px;color:var(--bad)}
 .lkb img{max-height:64px;max-width:100%;display:block;margin:0 auto}.logo img{height:34px;width:auto;max-width:220px;display:block}.pv{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:18px 22px;margin:4px 0 8px;border:1px dashed #3a3a3f;border-radius:14px;background:#0f0f11}.pv .logo img{height:40px}
+.lk .lkl{width:auto;display:block;margin:12px auto 0;padding:4px 8px;background:none;border:0;color:var(--mute);font-size:13px;text-decoration:underline;cursor:pointer}.lk .lkl:hover{color:var(--fg);background:none}.lk .rp{color:#c9c7c0;font-size:14px;margin:0 0 6px;line-height:1.6}.lk .rs{margin-top:14px}.lk .rm{min-height:20px;margin:12px 0 0;text-align:center;font-size:14px;color:var(--bad)}.lk .rc{text-align:center;font-size:26px;letter-spacing:.5em;font-weight:700}.lk label.ck{margin-top:12px}.lk input[type=checkbox]{width:44px}
 .lkn{margin:6px 0 0;text-align:center;font-size:12px;color:#6f6d67}
 </style>
 </head>
 <body class="locked">
-<div id="lock"><form class="lk" id="lkf"><div class="lkb">SIAM <em>DESIGN</em></div><p class="lks">Private studio</p><label for="lku">Username</label><input id="lku" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required><label for="lkp">Password</label><input id="lkp" type="password" autocomplete="current-password" required><button class="pri" id="lkb" type="submit">Sign in</button><p id="lkm" role="alert"></p><p class="lkn">Authorised access only</p></form></div>
+<div id="lock"><form class="lk" id="lkf"><div class="lkb">SIAM <em>DESIGN</em></div><p class="lks">Private studio</p><label for="lku">Username</label><input id="lku" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required><label for="lkp">Password</label><input id="lkp" type="password" autocomplete="current-password" required><button class="pri" id="lkb" type="submit">Sign in</button><p id="lkm" role="alert"></p><button type="button" class="lkl" id="lkfp">Forgot password?</button><p class="lkn">Authorised access only</p></form><form class="lk" id="rstf" hidden></form></div>
 <div class="top"><div class="brand"><span class="logo">SIAM <em>DESIGN</em></span><span class="tag">Studio</span></div><span id="st"></span><a class="btn" href="index.html" target="_blank">Preview site</a><button class="pri" id="dl">Download content.js</button><button id="out" type="button">Log out</button></div>
 <nav id="tabs"></nav>
 <main id="ed"></main>
@@ -105,26 +106,74 @@ apply();
 <script src="admin-login.js"></script>
 <script>
 (function(){
-var L=window.ADMIN_LOGIN,lock=document.getElementById('lock'),msg=document.getElementById('lkm'),btn=document.getElementById('lkb'),enc=new TextEncoder(),FK='adm_f',ok;
+var L=window.ADMIN_LOGIN,lock=document.getElementById('lock'),form=document.getElementById('lkf'),rf=document.getElementById('rstf'),msg=document.getElementById('lkm'),btn=document.getElementById('lkb'),enc=new TextEncoder(),FK='adm_f',ok,esc=function(s){return window.AdminBrand.esc(s)};
 window.__unlock=new Promise(function(r){ok=r});
 function hex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,'0')}).join('')}
 function unhex(h){return new Uint8Array(h.match(/../g).map(function(x){return parseInt(x,16)}))}
 function derive(u,p,salt,it){return crypto.subtle.importKey('raw',enc.encode(u.trim().toLowerCase()+'\n'+p),'PBKDF2',false,['deriveBits']).then(function(k){return crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:unhex(salt),iterations:it},k,256)}).then(hex)}
-window.AdminLock={make:function(u,p,temp){var s=hex(crypto.getRandomValues(new Uint8Array(16))),it=210000;return derive(u,p,s,it).then(function(h){return 'window.ADMIN_LOGIN='+JSON.stringify({v:1,iter:it,salt:s,hash:h,temp:!!temp})+';\n'})}};
+function makeObj(u,p,temp){var s=hex(crypto.getRandomValues(new Uint8Array(16))),it=210000;return derive(u,p,s,it).then(function(h){return {v:1,iter:it,salt:s,hash:h,temp:!!temp}})}
+function toFile(o){return 'window.ADMIN_LOGIN='+JSON.stringify(o)+';\n'}
+function putFile(g,path,txt){var root='https://api.github.com/repos/'+encodeURIComponent(String(g.owner).trim())+'/'+encodeURIComponent(String(g.repo).trim())+'/contents/'+path,br=String(g.branch||'main').trim(),hd={'Authorization':'Bearer '+String(g.token).trim(),'Accept':'application/vnd.github+json'};
+ return fetch(root+'?ref='+encodeURIComponent(br),{headers:hd}).then(function(r){return r.ok?r.json():null}).then(function(j){var body={message:'Update admin login',content:btoa(unescape(encodeURIComponent(txt))),branch:br};if(j&&j.sha)body.sha=j.sha;return fetch(root,{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},hd),body:JSON.stringify(body)})}).then(function(r){if(!r.ok){var e=new Error(r.status===401||r.status===403?'GitHub refused the token. It needs “Contents: Read and write” for this repository.':r.status===404?'GitHub could not find that username, repository or branch.':'GitHub said '+r.status+'.');throw e}})}
+function adopt(o,user){window.ADMIN_LOGIN=L=o;sessionStorage.setItem('adm_s',o.hash.slice(0,16));if(user)sessionStorage.setItem('adm_u',user)}
+function ghGet(){return window.SiteDB?window.SiteDB.get('gh').then(function(g){return g&&g.owner&&g.repo&&g.token?g:null}):Promise.resolve(null)}
+function ghOK(g){return g&&g.owner&&g.repo&&g.token}
+window.AdminLock={make:function(u,p,temp){return makeObj(u,p,temp).then(toFile)},check:function(u,p){return derive(u,p,L.salt,L.iter).then(function(h){return h===L.hash})},put:putFile,adopt:adopt,ghGet:ghGet,ghSet:function(g){return window.SiteDB.set('gh',g)},obj:makeObj,file:toFile};
 function open(){document.body.classList.remove('locked');lock.remove();ok()}
-document.getElementById('out').onclick=function(){sessionStorage.removeItem('adm_s');location.reload()};
-if(!L||!L.hash){msg.textContent='Login file missing: upload admin-login.js next to admin.html.';btn.disabled=true;return}
+document.getElementById('out').onclick=function(){sessionStorage.removeItem('adm_s');sessionStorage.removeItem('adm_u');location.reload()};
+if(!L||!L.hash){msg.textContent='Login file missing: upload admin-login.js next to admin.html.';btn.disabled=true;document.getElementById('lkfp').hidden=true;return}
 if(!window.crypto||!crypto.subtle){msg.textContent='This browser cannot check passwords here. Open the site over https.';btn.disabled=true;return}
 if(sessionStorage.getItem('adm_s')===L.hash.slice(0,16)){open();return}
 function fails(){try{return JSON.parse(localStorage.getItem(FK))||{n:0,until:0}}catch(e){return{n:0,until:0}}}
 function wait(){var left=Math.ceil((fails().until-Date.now())/1000);if(left>0){msg.textContent='Too many attempts. Try again in '+left+'s.';btn.disabled=true;setTimeout(wait,1000)}else{btn.disabled=false;if(/Too many/.test(msg.textContent))msg.textContent=''}}
 wait();
-document.getElementById('lkf').onsubmit=function(e){e.preventDefault();
- if(fails().until>Date.now())return;btn.disabled=true;msg.textContent='';
- derive(document.getElementById('lku').value,document.getElementById('lkp').value,L.salt,L.iter).then(function(h){
-  if(h===L.hash){localStorage.removeItem(FK);sessionStorage.setItem('adm_s',L.hash.slice(0,16));open();return}
+form.onsubmit=function(e){e.preventDefault();
+ if(fails().until>Date.now())return;btn.disabled=true;msg.textContent='';var U=document.getElementById('lku').value;
+ derive(U,document.getElementById('lkp').value,L.salt,L.iter).then(function(h){
+  if(h===L.hash){localStorage.removeItem(FK);sessionStorage.setItem('adm_s',L.hash.slice(0,16));sessionStorage.setItem('adm_u',U.trim());open();return}
   var f=fails();f.n++;f.until=f.n>=3?Date.now()+Math.min(300,5*Math.pow(2,f.n-2))*1000:0;localStorage.setItem(FK,JSON.stringify(f));
   msg.textContent='Wrong username or password.';document.getElementById('lkp').value='';btn.disabled=false;wait()})};
+
+/* ---------- forgot password: emailed code, then a new password saved straight to GitHub ---------- */
+var RK='adm_rc',verified=false,rm;
+function C(){return (window.SITE&&window.SITE.contact)||{}}
+function mask(e){e=String(e||'');var i=e.indexOf('@');return i>0?e.charAt(0)+'•••'+e.slice(i):'your contact inbox'}
+function R(html){rf.innerHTML='<div class="lkb">'+form.querySelector('.lkb').innerHTML+'</div><p class="lks">Reset password</p>'+html;rm=rf.querySelector('.rm');var b=rf.querySelector('.rback');if(b)b.onclick=back}
+function say(t){if(rm)rm.textContent=t}
+function back(){rf.hidden=true;form.hidden=false;verified=false}
+function limit(){var a=[];try{a=JSON.parse(localStorage.getItem('adm_rs'))||[]}catch(e){}var n=Date.now();a=a.filter(function(t){return n-t<3600000});if(a.length&&n-a[a.length-1]<60000)return 'Please wait a minute before asking for another code.';if(a.length>=5)return 'Too many codes requested. Please try again in an hour.';return ''}
+function logSend(){var a=[];try{a=JSON.parse(localStorage.getItem('adm_rs'))||[]}catch(e){}a.push(Date.now());localStorage.setItem('adm_rs',JSON.stringify(a))}
+function sendCode(){var c=C(),u=String(c.formUrl||'').trim(),why=limit();if(why)return Promise.reject(new Error(why));
+ var code=String(100000+crypto.getRandomValues(new Uint32Array(1))[0]%900000),salt=hex(crypto.getRandomValues(new Uint8Array(16)));
+ return derive('reset',code,salt,100000).then(function(h){sessionStorage.setItem(RK,JSON.stringify({salt:salt,hash:h,exp:Date.now()+600000,tries:0}));
+  var fd=new FormData();fd.append('name','Admin panel');fd.append('email',c.email||'');fd.append('_subject','Your admin reset code');fd.append('message','Your admin reset code is '+code+'. It works for 10 minutes. If you did not ask for it, you can ignore this email.');
+  return fetch(u,{method:'POST',body:fd,headers:{Accept:'application/json'}})}).then(function(r){if(!r.ok)throw new Error('The email could not be sent. Check your Formspree address under Contact.');logSend()})}
+function s1(){var c=C();
+ if(!String(c.formUrl||'').trim()){R('<p class="rp">Password reset by email needs your contact form address. Sign in, open <b>Contact → Form address</b>, paste your Formspree address and publish. Until then you can create a new login on your computer with <b>make-login.html</b>.</p><button type="button" class="lkl rback">Back to sign in</button>');return}
+ R('<p class="rp">We will email a 6-digit code to the inbox that receives your contact form messages (contact address: <b>'+esc(mask(c.email))+'</b>). The code works for 10 minutes.</p><button class="pri" type="submit">Email me a code</button><p class="rm" role="alert"></p><button type="button" class="lkl rback">Back to sign in</button>');
+ rf.onsubmit=function(e){e.preventDefault();var b=rf.querySelector('.pri');b.disabled=true;say('Sending…');sendCode().then(s2).catch(function(x){b.disabled=false;say(x.message||'Could not send the code.')})}}
+function s2(note){R('<p class="rp">Enter the 6-digit code we emailed you.</p><input class="rc" id="rcode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" required><button class="pri" type="submit">Verify code</button><p class="rm" role="alert"></p><button type="button" class="lkl" id="rsend">Send a new code</button><button type="button" class="lkl rback">Back to sign in</button>');
+ rf.onsubmit=function(e){e.preventDefault();var d;try{d=JSON.parse(sessionStorage.getItem(RK))}catch(x){}
+  if(!d||Date.now()>d.exp){say('That code has expired. Send a new one.');return}
+  if(d.tries>=5){sessionStorage.removeItem(RK);say('Too many wrong tries. Send a new code.');return}
+  derive('reset',document.getElementById('rcode').value.trim(),d.salt,100000).then(function(h){
+   if(h===d.hash){sessionStorage.removeItem(RK);verified=true;s3();return}
+   d.tries++;sessionStorage.setItem(RK,JSON.stringify(d));say('That code is not right. '+(5-d.tries)+' tries left.')})};
+ document.getElementById('rsend').onclick=function(){say('Sending…');sendCode().then(function(){say('A new code is on its way.')}).catch(function(x){say(x.message)})}}
+function s3(){ghGet().then(function(g){var need=!g;
+ R('<p class="rp">Code verified. Choose your new login.</p><label>Username</label><input id="nu" type="text" autocomplete="username" autocapitalize="none" required><label>New password (10+ characters)</label><input id="np" type="password" autocomplete="new-password" required><label>Repeat the password</label><input id="np2" type="password" autocomplete="new-password" required>'
+ +(need?'<p class="rp rs">To save it, this page needs to write to your GitHub repository. Enter the same details as in the Publish tab.</p><label>GitHub username</label><input id="go" type="text" autocapitalize="none"><label>Repository name</label><input id="gr" type="text" autocapitalize="none"><label>Branch</label><input id="gb" type="text" value="main"><label>Access token</label><input id="gt" type="password" autocomplete="off"><label class="ck"><input type="checkbox" id="gk"> Remember this on this device</label>':'')
+ +'<button class="pri" type="submit">Save new password</button><p class="rm" role="alert"></p><button type="button" class="lkl rback">Cancel</button>');
+ rf.onsubmit=function(e){e.preventDefault();if(!verified){back();return}
+  var U=document.getElementById('nu').value.trim(),P=document.getElementById('np').value;
+  if(!U||P.length<10){say('Use a username and a password of at least 10 characters.');return}
+  if(P!==document.getElementById('np2').value){say('The two passwords do not match.');return}
+  var G=g;if(need){G={owner:document.getElementById('go').value.trim(),repo:document.getElementById('gr').value.trim(),branch:document.getElementById('gb').value.trim()||'main',token:document.getElementById('gt').value.trim()};if(!ghOK(G)){say('Fill in all the GitHub details.');return}}
+  var b=rf.querySelector('.pri');b.disabled=true;say('Saving to GitHub…');
+  makeObj(U,P,false).then(function(o){return putFile(G,'admin-login.js',toFile(o)).then(function(){
+   if(need&&document.getElementById('gk').checked)return window.SiteDB.set('gh',G);}).then(function(){adopt(o,null);sessionStorage.removeItem('adm_s');sessionStorage.removeItem('adm_u');s4(U)})}).catch(function(x){b.disabled=false;say(x.message||'Could not save. Please try again.')})}})}
+function s4(U){R('<p class="rp"><b>Your new password is saved.</b> It is stored in your GitHub repository and goes live in a minute or two. Until then the old one may still work on a refreshed page.</p><button type="button" class="pri rback">Sign in</button>');rf.onsubmit=function(e){e.preventDefault()};document.getElementById('lku').value=U}
+document.getElementById('lkfp').onclick=function(){form.hidden=true;rf.hidden=false;s1()};
 })();
 </script>
 <script src="content.js"></script>
@@ -354,19 +403,31 @@ function dlText(name,txt){var a=document.createElement('a');a.href=URL.createObj
 function putFile(g,path,txt){var root='https://api.github.com/repos/'+encodeURIComponent(g.owner.trim())+'/'+encodeURIComponent(g.repo.trim())+'/contents/'+path,br=(g.branch||'main').trim(),hd={'Authorization':'Bearer '+g.token.trim(),'Accept':'application/vnd.github+json'};
  return fetch(root+'?ref='+encodeURIComponent(br),{headers:hd}).then(function(r){return r.ok?r.json():null}).then(function(j){var body={message:'Update admin login',content:btoa(unescape(encodeURIComponent(txt))),branch:br};if(j&&j.sha)body.sha=j.sha;return fetch(root,{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},hd),body:JSON.stringify(body)})}).then(function(r){if(!r.ok)throw new Error('GitHub said '+r.status)})}
 function loginBox(m){
- var tmp=window.ADMIN_LOGIN&&window.ADMIN_LOGIN.temp,b=box('Your login',tmp?'You are still using the starting password. Choose your own username and password now.':'Change the username and password you use to open this editor.');
- var f=el('<div class="two"></div>'),u=el('<div><label>New username</label><input type="text" autocomplete="username"></div>'),p=el('<div><label>New password (10+ characters)</label><input type="password" autocomplete="new-password"></div>'),p2=el('<div><label>Repeat the password</label><input type="password" autocomplete="new-password"></div>');
- f.appendChild(u);f.appendChild(p);b.appendChild(f);b.appendChild(p2);
- var s=el('<p class="hint" role="status"></p>'),r=el('<div class="row"></div>'),say=function(x){s.textContent=x};
- r.appendChild(btn('Save my new login',function(){
-  var U=u.lastChild.value.trim(),P=p.lastChild.value;
-  if(!U||P.length<10){say('Use a username and a password of at least 10 characters.');return}
-  if(P!==p2.lastChild.value){say('The two passwords do not match.');return}
-  AdminLock.make(U,P,false).then(function(txt){DB.get('gh').then(function(g){
-   if(!g||!g.owner||!g.repo||!g.token){dlText('admin-login.js',txt);say('Downloaded admin-login.js. Upload it to your GitHub repository, replacing the old one. Your new login works once it is live. (Set up “Publish directly” in the Publish tab to do this in one click next time.)');return}
-   putFile(g,'admin-login.js',txt).then(function(){say('Done. Your new login goes live in a minute or two. Use it next time you sign in.')}).catch(function(e){dlText('admin-login.js',txt);say('Could not publish ('+e.message+'). The file was downloaded instead: upload it to GitHub.')})})})},'pri'));
- b.appendChild(r);b.appendChild(s);
- b.appendChild(el('<h3>Good to know</h3>'));b.appendChild(el('<p class="hint">This sign-in keeps casual visitors out of the editor. Nothing on the live site can be changed from here without your GitHub token, which is stored only in your own browser. Keep that token private, and use “Log out” on shared computers. If you ever forget the password, open make-login.html on your computer to create a new admin-login.js and upload it to GitHub.</p>'));
+ var tmp=window.ADMIN_LOGIN&&window.ADMIN_LOGIN.temp,b=box('Your login',tmp?'You are still using the starting password. Choose your own username and password now.':'Change your password. Enter your current password, then the new one. It is saved straight to GitHub, so there is nothing to download or upload.');
+ var f1=el('<div class="two"></div>'),cur=el('<div><label>Current password</label><input type="password" autocomplete="current-password"></div>'),u=el('<div><label>Username</label><input type="text" autocomplete="username" autocapitalize="none"></div>'),p=el('<div><label>New password (10+ characters)</label><input type="password" autocomplete="new-password"></div>'),p2=el('<div><label>Repeat the new password</label><input type="password" autocomplete="new-password"></div>');
+ var U0=sessionStorage.getItem('adm_u')||'';u.lastChild.value=U0;
+ f1.appendChild(cur);f1.appendChild(u);b.appendChild(f1);var f2=el('<div class="two"></div>');f2.appendChild(p);f2.appendChild(p2);b.appendChild(f2);
+ var gb=el('<div style="display:none"></div>');gb.appendChild(el('<p class="hint">To save your password, this panel needs to write to your GitHub repository. Enter these once; they are kept only in this browser. The token is created on GitHub under Settings → Developer settings → Personal access tokens → Fine-grained tokens, limited to this repository with “Contents: Read and write”.</p>'));
+ var g4=el('<div class="two"></div>'),go=el('<div><label>GitHub username</label><input type="text" autocapitalize="none"></div>'),gr=el('<div><label>Repository name</label><input type="text" autocapitalize="none"></div>'),gbr=el('<div><label>Branch</label><input type="text" value="main"></div>'),gt=el('<div><label>Access token</label><input type="password" autocomplete="off"></div>');
+ [go,gr,gbr,gt].forEach(function(x){g4.appendChild(x)});gb.appendChild(g4);b.appendChild(gb);
+ var ghNeed=false;AdminLock.ghGet().then(function(g){if(!g){ghNeed=true;gb.style.display=''}});
+ var s=el('<p class="hint" role="status"></p>'),r=el('<div class="row"></div>'),say=function(x){s.textContent=x},fb=btn('Download the file instead',function(){},''),saveBtn;fb.style.display='none';
+ saveBtn=btn('Save new password',function(){
+  var U=u.lastChild.value.trim(),C=cur.lastChild.value,P=p.lastChild.value;
+  if(!C){say('Enter your current password.');return}
+  if(!U||P.length<10){say('Use a username and a new password of at least 10 characters.');return}
+  if(P!==p2.lastChild.value){say('The two new passwords do not match.');return}
+  saveBtn.disabled=true;fb.style.display='none';say('Checking your current password…');
+  AdminLock.check(U0||U,C).then(function(good){
+   if(!good){say(U0?'Your current password is not right.':'Your current username or password is not right.');saveBtn.disabled=false;return}
+   var G=null;
+   return (ghNeed?Promise.resolve({owner:go.lastChild.value.trim(),repo:gr.lastChild.value.trim(),branch:gbr.lastChild.value.trim()||'main',token:gt.lastChild.value.trim()}):AdminLock.ghGet()).then(function(g){
+    if(!g||!g.owner||!g.repo||!g.token){say('Fill in all the GitHub details first.');saveBtn.disabled=false;return}
+    G=g;say('Saving to GitHub…');
+    return AdminLock.obj(U,P,false).then(function(o){var txt=AdminLock.file(o);fb.onclick=function(){dlText('admin-login.js',txt)};
+     return AdminLock.put(G,'admin-login.js',txt).then(function(){return ghNeed?AdminLock.ghSet(G):0}).then(function(){AdminLock.adopt(o,U);sessionStorage.setItem('adm_u',U);U0=U;ghNeed=false;gb.style.display='none';cur.lastChild.value=p.lastChild.value=p2.lastChild.value='';say('Saved. Your new password is stored in GitHub and goes live in a minute or two. Use it the next time you sign in.');saveBtn.disabled=false}).catch(function(x){say((x.message||'Could not save.')+' Nothing was changed.');fb.style.display='';saveBtn.disabled=false})})})})},'pri');
+ r.appendChild(saveBtn);r.appendChild(fb);b.appendChild(r);b.appendChild(s);
+ b.appendChild(el('<h3>Good to know</h3>'));b.appendChild(el('<p class="hint">This sign-in keeps casual visitors out of the editor. Nothing on the live site can be changed from here without your GitHub token, which is stored only in your own browser. If you forget your password, use “Forgot password?” on the sign-in page: a code is emailed to your contact inbox, then you choose a new password.</p>'));
  m.appendChild(b)};
 /* ---- image speed: WebP output, lighter copies for cards/covers, one-click optimizer for existing images ---- */
 function enc(c,a,q){var u=c.toDataURL('image/webp',q);return u.indexOf('data:image/webp')===0?u:(a?c.toDataURL('image/png'):c.toDataURL('image/jpeg',.85))}
