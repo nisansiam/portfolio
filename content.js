@@ -459,6 +459,76 @@ window.SITE = {
    "brief": "Create a well-structured and visually engaging magazine that communicates the brand's identity, presents relevant content, and provides readers with an enjoyable editorial experience.",
    "process": "Worked on page layouts, typography, image placement, colour coordination, and content hierarchy. Developed a consistent editorial style that balances readability with visual interest while incorporating Younic Home's brand elements throughout the publication.",
    "result": "A cohesive branded publication that extends Younic Home's visual identity into editorial design through structured layouts and consistent visual communication."
+  },
+  {
+   "id": "p1794942657056",
+   "title": "Brochure Design for Younic Home & Seito Kashikoi School",
+   "summary": "Informational and promotional brochures designed for two distinct brands across accommodation and education.",
+   "desc": "A collection of brochure designs created for Younic Home and Seito Kashikoi School, focusing on brand communication, information presentation, and promotional design.\n\nThe project explores two different communication approaches: presenting student accommodation services and facilities for Younic Home, and introducing educational offerings and school information for Seito Kashikoi School.\n\nEach brochure was designed to reflect its respective brand identity while making important information accessible, engaging, and easy to navigate.",
+   "tags": [
+    "Brochure Design",
+    "Print Design",
+    "Marketing Collateral",
+    "Editorial Design",
+    "Layout Design",
+    "Brand Communication",
+    "Typography",
+    "Graphic Design"
+   ],
+   "client": "Younic Home & Seito Kashikoi School",
+   "date": "2026",
+   "role": "Graphic Designer — Brochure Layout, Visual Design, Typography, Information Hierarchy & Print Design.",
+   "featured": false,
+   "cover": "images/y1efitzpm7-60sf.webp",
+   "images": [
+    "images/y1efitzpm7-60sf.webp",
+    "images/1hgld4v1yil-7uo3.webp",
+    "images/vtay09bm30-3x8b.webp",
+    "images/11lhk01doqh-3y8b.webp"
+   ],
+   "color": "p2",
+   "brief": "Design informative and visually appealing brochures that communicate each brand's services, offerings, and key information while maintaining consistency with their individual visual identities.",
+   "process": "Developed layouts and visual compositions tailored to each brand's communication needs. Worked with typography, colour systems, imagery, and content hierarchy to organise information effectively and create a cohesive reading experience.",
+   "result": "A set of brand-aligned promotional brochures that present essential information through structured layouts and clear visual communication, serving both marketing and informational purposes."
+  },
+  {
+   "id": "p1794942849552",
+   "title": "Splendar — Experimental Calendar Design",
+   "summary": "A spider-inspired experimental calendar exploring the intersection of graphic design, illustration, and physical form.",
+   "desc": "Splendar is an experimental calendar design developed as a university project in 2024. Inspired by the form and structure of a spider, the project transforms a conventional calendar into an unconventional functional object.\n\nThe calendar features a spider-shaped body supported by steel-wire legs that grip a flat wooden stand mounted on the wall. By combining graphic elements with physical materials, the project explores how everyday functional objects can become expressive design pieces.",
+   "tags": [
+    "Calendar Design",
+    "Conceptual Design",
+    "Experimental Design",
+    "Product Design",
+    "Illustration",
+    "Typography",
+    "Creative Concept",
+    "University Project"
+   ],
+   "client": "Academic Project — University of Development Alternative",
+   "date": "2024",
+   "role": "Designer — Concept Development, Graphic Design, Illustration, Calendar Design & Structural Concept.",
+   "featured": true,
+   "cover": "images/1sdvx394itg-6hf7.webp",
+   "images": [
+    "images/1epkpi1uwqh-1qzr.webp",
+    "images/25bf9qc0khp-1pvr.webp",
+    "images/vfh6kjr0cs-1stn.webp",
+    "images/27huxq91mvx-1rqb.webp",
+    "images/15mujcckz14-1rvr.webp",
+    "images/h5uo7xuhh8-1qmf.webp",
+    "images/1vxaneh7mkf-1qej.webp",
+    "images/1v337fgikgj-1qsr.webp",
+    "images/13b1tfavsdv-1rpf.webp",
+    "images/q07pvj2mwp-1qxb.webp",
+    "images/25ks202yfdl-1qxj.webp",
+    "images/b4smlyz10e-1qbn.webp"
+   ],
+   "color": "p2",
+   "brief": "Explore an unconventional approach to calendar design by combining visual creativity, structural thinking, and functional usability.",
+   "process": "Developed the concept around the anatomy of a spider, translating its distinctive form into a functional calendar structure. Explored the relationship between shape, materials, and construction to create a design that moves beyond traditional calendar formats.",
+   "result": "An experimental calendar concept that combines graphic design and physical form, transforming a familiar everyday object into an interactive visual and functional piece."
   }
  ],
  "thumbs": {
@@ -528,6 +598,10 @@ window.SITE = {
   "images/1i7mhwkyl6b-2qrr.webp": "images/1i7mhwkyl6b-2qrr-s.webp",
   "images/1sphzgnqz6g-1y3f.webp": "images/1sphzgnqz6g-1y3f-s.webp",
   "images/1fajo13mf6e-2a2n.webp": "images/1fajo13mf6e-2a2n-s.webp",
-  "images/2b4tfjtiysj-25q7.webp": "images/2b4tfjtiysj-25q7-s.webp"
+  "images/2b4tfjtiysj-25q7.webp": "images/2b4tfjtiysj-25q7-s.webp",
+  "images/y1efitzpm7-60sf.webp": "images/y1efitzpm7-60sf-s.webp",
+  "images/1hgld4v1yil-7uo3.webp": "images/1hgld4v1yil-7uo3-s.webp",
+  "images/vtay09bm30-3x8b.webp": "images/vtay09bm30-3x8b-s.webp",
+  "images/11lhk01doqh-3y8b.webp": "images/11lhk01doqh-3y8b-s.webp"
  }
 };
