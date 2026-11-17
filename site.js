@@ -60,24 +60,50 @@ function aboutBlock(title,text,more){
 var PVIMGS=[],PVALT='';
 function pviewer(){
  var v=document.querySelector('.pv');if(!v||!PVIMGS.length)return;
- var im=v.querySelector('.pvi'),c=v.querySelector('.pvc'),n=PVIMGS.length,k=0,tok=0,vis=false,rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
- function label(){c.textContent=(k+1)+' / '+n;im.alt=PVALT+' – photo '+(k+1)+' of '+n}
- function warm(){[k+1,k-1].forEach(function(q){var y=new Image();y.src=PVIMGS[(q%n+n)%n]})}
- function show(j){j=(j%n+n)%n;if(j===k)return;k=j;var t=++tok;label();
-  if(rm){im.src=PVIMGS[k];warm();return}
-  im.style.opacity=0;
-  setTimeout(function(){if(t!==tok)return;var x=new Image();x.onload=x.onerror=function(){if(t!==tok)return;im.src=PVIMGS[k];requestAnimationFrame(function(){im.style.opacity=1});warm()};x.src=PVIMGS[k]},150)}
- im.src=PVIMGS[0];label();warm();
- v.querySelector('.pvp').onclick=function(){show(k-1)};v.querySelector('.pvn').onclick=function(){show(k+1)};
+ var st=v.querySelector('.pvs'),c=v.querySelector('.pvc'),tr=v.querySelector('.pvt i'),pp=v.querySelector('.pvp'),pn=v.querySelector('.pvn'),n=PVIMGS.length,k=0,vis=false,started=false,
+  rm=matchMedia('(prefers-reduced-motion:reduce)').matches,SC=[1,.82,.68,.57],RT=[0,24,30,34],OP=[1,.94,.8,.62],BR=[1,.8,.62,.48],ar={},els={};
+ function wrap(i){return ((i%n)+n)%n}
+ function label(){c.textContent=(k+1)+' / '+n;tr.style.width=((k+1)/n*100)+'%'}
+ function fit(){st.style.width=document.documentElement.clientWidth+'px';st.style.marginLeft=(-v.getBoundingClientRect().left)+'px'} /* photos may slide out to the screen edges */
+ function tf(x,s,r){return 'translate(-50%,-50%) translateX('+x+'px) scale('+s+') rotateY('+r+'deg)'}
+ function make(i,d,W){
+  var el=document.createElement('div'),im=new Image(),o={el:el,im:im,i:i,d:d,loaded:false,full:Math.abs(d)<=1};
+  el.className='pvk';im.alt='';im.decoding='async';im.draggable=false;el.appendChild(im);
+  el.onclick=function(){if(els[i]&&els[i].d!==0)show(i)};
+  im.onload=function(){ar[i]=im.naturalWidth/im.naturalHeight;o.loaded=true;place()};
+  var thumb=ts(PVIMGS[i]);im.src=(o.full||thumb===PVIMGS[i])?PVIMGS[i]:thumb; /* far photos use the lighter copy until they come close */
+  var dir=d>0?1:-1;el.style.transition='none';el.style.opacity='0';el.style.transform=tf(dir*(W/2+200),.5,-dir*40);st.appendChild(el);el.getBoundingClientRect();el.style.transition='';
+  return o}
+ function place(){
+  if(!started)return;
+  var W=st.clientWidth,mob=W<700,maxW=Math.min(W*(mob?.78:.5),1080),maxH=Math.min(innerHeight*(mob?.6:.72),mob?560:860),
+   box=function(i){var a=ar[i]||1.5,w=Math.min(maxW,maxH*a);return{w:w,h:w/a}},cb=box(k),want={},used={},side=Math.min(W>=1500?3:W>=900?2:1,n-1);
+  want[k]={d:0,x:0,s:1,b:cb};used[k]=1;
+  [1,-1].forEach(function(sg){var px=0,pw=cb.w,lim=Math.min(side,sg>0?Math.ceil((n-1)/2):Math.floor((n-1)/2));
+   for(var d=1;d<=lim;d++){var i=wrap(k+sg*d);if(used[i])break;var b=box(i),sc=SC[d]*Math.min(1,cb.h/b.h),w=b.w*sc,x=px+sg*(pw/2+w/2-.42*w); /* neighbours are never taller than the centre photo */
+    if(Math.abs(x)-w/2>W/2)break;used[i]=1;want[i]={d:sg*d,x:x,s:sc,b:b};px=x;pw=w}});
+  Object.keys(els).forEach(function(i){if(!want[i]){var o=els[i],dir=o.d>=0?1:-1;delete els[i];o.el.style.opacity='0';o.el.style.transform=tf(dir*(W/2+200),.5,-dir*40);setTimeout(function(){o.el.remove()},rm?0:900)}});
+  Object.keys(want).forEach(function(i){var w=want[i],o=els[i]||(els[i]=make(+i,w.d,W)),ab=Math.abs(w.d),e=o.el;o.d=w.d;
+   e.style.width=w.b.w+'px';e.style.height=w.b.h+'px';e.style.transform=tf(w.x,w.s,w.d>0?-RT[ab]:RT[ab]);e.style.opacity=o.loaded?OP[ab]:0;e.style.filter='brightness('+BR[ab]+')';e.style.zIndex=10-ab;
+   e.classList.toggle('on',ab===0);e.setAttribute('aria-hidden',ab?'true':'false');
+   if(ab<=1&&!o.full){o.full=true;var y=new Image();y.onload=function(){o.im.src=PVIMGS[+i]};y.src=PVIMGS[+i]}});
+  st.style.height=Math.round(cb.h+64)+'px'}
+ function show(j){j=wrap(j);if(j===k)return;k=j;label();place()}
+ function flash(b){b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit')}
+ function go(dir){if(n<2)return;flash(dir>0?pn:pp);show(k+dir)}
+ label();
+ pp.onclick=function(){go(-1)};pn.onclick=function(){go(1)};
  document.addEventListener('keydown',function(ev){
   if(n<2||(ev.key!=='ArrowLeft'&&ev.key!=='ArrowRight')||ev.ctrlKey||ev.metaKey||ev.altKey||ev.shiftKey)return;
   if(/INPUT|TEXTAREA|SELECT/.test((ev.target&&ev.target.tagName)||''))return;
   if(!vis&&document.activeElement!==v)return; /* only while the photos are on screen */
-  ev.preventDefault();show(k+(ev.key==='ArrowRight'?1:-1))});
- var sx=0,sy=0,st=v.querySelector('.pvs');
+  ev.preventDefault();go(ev.key==='ArrowRight'?1:-1)});
+ var sx=0,sy=0;
  st.addEventListener('pointerdown',function(ev){sx=ev.clientX;sy=ev.clientY});
- st.addEventListener('pointerup',function(ev){var dx=ev.clientX-sx,dy=ev.clientY-sy;if(n>1&&Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(k+(dx<0?1:-1))});
- if(!rm&&'IntersectionObserver' in window){var io=new IntersectionObserver(function(en){vis=en[0].isIntersecting;if(vis)v.classList.add('in')},{threshold:.2});io.observe(v)}else{vis=true;v.classList.add('in')}
+ st.addEventListener('pointerup',function(ev){var dx=ev.clientX-sx,dy=ev.clientY-sy;if(n>1&&Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)go(dx<0?1:-1)});
+ var rz=0;addEventListener('resize',function(){cancelAnimationFrame(rz);rz=requestAnimationFrame(function(){if(started){fit();place()}})});
+ function start(){if(started)return;started=true;fit();place()}
+ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){vis=en[0].isIntersecting;if(vis){v.classList.add('in');start()}},{threshold:.15,rootMargin:'200px 0px'});io.observe(v)}else{vis=true;v.classList.add('in');start()}
 }
 function ts(u){var T=S&&S.thumbs;return (T&&T[u])||u}
 function heroTW(H){if((H.heroStyle||'typewriter')!=='typewriter')return '';return '<div class="tw" data-tw><h1 class="twsr">'+rich(H.h1a)+' '+rich(H.h1b)+'</h1><div class="tws"></div><div class="twb">'+(H.avail?'<div class="av"><i></i>'+e(H.avail)+'</div>':'')+'<div class="btns"><a class="pill" href="work.html">See my work <i>↗</i></a><a class="pill ghost" href="about.html">About me <i>↗</i></a></div></div></div>'}
@@ -122,7 +148,7 @@ var views={
   document.title=p.title+' – '+S.brand.full+' ('+S.brand.name+')';
   var meta=[['Client',p.client],['Date',p.date],['Role',p.role]].filter(function(m){return m[1]}).map(function(m){return '<div><dt>'+m[0]+'</dt><dd>'+e(m[1])+'</dd></div>'}).join('');
   var secs=[['Overview',p.desc],['The brief',p.brief],['The process',p.process],['The result',p.result]].filter(function(x){return x[1]&&String(x[1]).trim()}).map(function(x,n){return '<div class="cs"><div class="csl"><span class="num">0'+(n+1)+'</span>'+x[0]+'</div><div class="cst">'+String(x[1]).split('\n').filter(Boolean).map(function(t){return '<p>'+e(t)+'</p>'}).join('')+'</div></div>'}).join('');
-  PVIMGS=(p.images||[]).filter(Boolean);PVALT=p.title;var gal=PVIMGS.length?'<div class="pv'+(PVIMGS.length<2?' one':'')+'" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Project photos"><div class="pvs"><img class="pvi" alt=""></div><div class="pvbar"><button class="pvb pvp" type="button" aria-label="Previous photo">←</button><span class="pvc" aria-live="polite"></span><button class="pvb pvn" type="button" aria-label="Next photo">→</button></div><p class="pvh"><span class="pk">Use the ← → keys on your keyboard</span><span class="pt2">Swipe, or tap the arrows</span></p></div>':'';
+  PVIMGS=(p.images||[]).filter(Boolean);PVALT=p.title;var ARW='<span class="pva"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></svg></span>',gal=PVIMGS.length?'<div class="pv'+(PVIMGS.length<2?' one':'')+'" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Project photos"><div class="pvs"></div><div class="pvbar"><button class="pvb pvp" type="button" aria-label="Previous photo">'+ARW+'</button><div class="pvm"><span class="pvc" aria-live="polite"></span><span class="pvt"><i></i></span></div><button class="pvb pvn" type="button" aria-label="Next photo">'+ARW+'</button></div><p class="pvh"><span class="pk">Use the ← → keys on your keyboard</span><span class="pt2">Swipe, or tap the arrows</span></p></div>':'';
   return '<section class="top pj"><div class="wrap"><a class="back" href="work.html">← All work</a><div class="phd"><div class="pht"><h1 class="pt">'+rich(p.title)+'</h1><p class="ps">'+e(p.summary)+'</p>'+tags(p.tags)+(meta?'<dl class="meta">'+meta+'</dl>':'')+'</div>'+
    '<div class="pcov">'+(p.cover?'<img class="gi" src="'+e(ts(p.cover))+'" alt="'+e(p.title)+'">':ph(p))+'</div></div>'+secs+gal+
    (P.length>1?'<a class="next" href="project.html?p='+encodeURIComponent(nx.id)+'"><span class="dim">Next project</span><span class="nt">'+e(nx.title)+' <i>↗</i></span></a>':'')+'</div></section>';
