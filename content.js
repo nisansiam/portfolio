@@ -98,7 +98,8 @@ window.SITE = {
     "img": ""
    }
   ],
-  "twSpeed": 2
+  "twSpeed": 2,
+  "heroStyle": "typewriter"
  },
  "about": {
   "photo": "images/2dis9ayls42-45jz.webp",
