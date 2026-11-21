@@ -301,14 +301,14 @@ window.SITE = {
    "images": [
     "images/1es5568njmy-3qc7.webp",
     "images/275bgbjh9xh-1hof.webp",
-    "images/a1jo0eunj8-5eir.webp",
     "images/14364fxlyf5-74tr.webp",
     "images/3f5r26ohht-5gob.webp",
     "images/va55agz998-77hv.jpg",
     "images/1eatuld4vz1-9lfj.jpg",
     "images/wqb4pyhpoy-7c5j.webp",
-    "images/1kpqiejhhuc-3iw7.webp",
-    "images/17em8vc7efo-7qfn.webp"
+    "images/14mc3ndvyq6-3dyn.webp",
+    "images/173ebtsbkw5-50qn.webp",
+    "images/2558k3f8fvj-5nmf.webp"
    ],
    "color": "p1"
   },
@@ -529,6 +529,68 @@ window.SITE = {
    "brief": "Explore an unconventional approach to calendar design by combining visual creativity, structural thinking, and functional usability.",
    "process": "Developed the concept around the anatomy of a spider, translating its distinctive form into a functional calendar structure. Explored the relationship between shape, materials, and construction to create a design that moves beyond traditional calendar formats.",
    "result": "An experimental calendar concept that combines graphic design and physical form, transforming a familiar everyday object into an interactive visual and functional piece."
+  },
+  {
+   "id": "p1795239983879",
+   "title": "Calendar Design for Seito Kashikoi School",
+   "summary": "A branded calendar design combining functional planning with a friendly and engaging educational visual identity.",
+   "desc": "A calendar design project created for Seito Kashikoi School, extending the school's visual identity into a practical everyday communication piece.\n\nThe design combines the school's brand colours, typography, and visual elements to create a cohesive calendar that is both functional and visually engaging. The approach reflects the school's educational environment while maintaining a clear and organised layout.",
+   "tags": [
+    "Calendar Design",
+    "Print Design",
+    "Brand Communication",
+    "Layout Design",
+    "Typography",
+    "Educational Design",
+    "Graphic Design",
+    "Marketing Collateral"
+   ],
+   "client": "Seito Kashikoi School",
+   "date": "2026",
+   "role": "Graphic Designer — Concept Development, Calendar Layout, Visual Design, Typography & Print Design.",
+   "featured": false,
+   "cover": "images/1t451gh3mwd-8q03.webp",
+   "images": [
+    "images/1t451gh3mwd-8q03.webp",
+    "images/w7lp3yo2ci-86ir.webp",
+    "images/22xfg5al3cy-2u6n.webp",
+    "images/n3c81oprrf-43tv.webp"
+   ],
+   "color": "p2",
+   "brief": "Design a branded calendar that communicates the school's identity while providing a practical and visually appealing format for everyday use.",
+   "process": "Developed the calendar layout around the school's visual identity, incorporating its colour palette, typography, and supporting graphic elements. Focused on information hierarchy, readability, and layout consistency to balance functionality with visual appeal.",
+   "result": "A branded calendar that brings Seito Kashikoi School's visual identity into a functional printed format, combining organised information with cohesive visual communication."
+  },
+  {
+   "id": "p1795240097682",
+   "title": "Banner Design for Younic Home",
+   "summary": "Promotional and informational banners designed to strengthen brand visibility and communicate key messages.",
+   "desc": "A collection of banner designs created for Younic Home, covering promotional campaigns, brand communication, service information, and special announcements.\n\nThe project focuses on translating the brand's visual identity into larger-format designs that communicate information effectively while maintaining visual consistency. Each banner is designed to capture attention, establish clear information hierarchy, and communicate its intended message to the audience.",
+   "tags": [
+    "Banner Design",
+    "Promotional Design",
+    "Large Format Design",
+    "Print Design",
+    "Marketing Collateral",
+    "Brand Communication",
+    "Advertising Design",
+    "Graphic Design"
+   ],
+   "client": "Younic Home",
+   "date": "2026",
+   "role": "Graphic Designer — Concept Development, Banner Design, Visual Communication, Layout & Typography.",
+   "featured": true,
+   "cover": "images/2cufwuf3z63-6dh3.webp",
+   "images": [
+    "images/2cufwuf3z63-6dh3.webp",
+    "images/3hwto9h8rg-3mxz.webp",
+    "images/1lbsd5zh4cy-3evv.webp",
+    "images/282vamc8nap-3v6f.webp"
+   ],
+   "color": "p2",
+   "brief": "Create impactful and informative banners for Younic Home to promote its services, communicate important announcements, and support marketing activities across different placements.",
+   "process": "Developed layouts based on individual communication objectives, incorporating brand colours, typography, imagery, and graphic elements. Focused on readability, visual hierarchy, and composition to ensure effective communication across larger display formats.",
+   "result": "A collection of branded banners supporting Younic Home's promotional and communication needs through consistent visual presentation and clear messaging."
   }
  ],
  "thumbs": {
@@ -564,11 +626,9 @@ window.SITE = {
   "images/1bdimkazyko-1yhn.webp": "images/1bdimkazyko-1yhn-s.webp",
   "images/qkxsww61b6-2bp3.webp": "images/qkxsww61b6-2bp3-s.webp",
   "images/1es5568njmy-3qc7.webp": "images/1es5568njmy-3qc7-s.webp",
-  "images/a1jo0eunj8-5eir.webp": "images/a1jo0eunj8-5eir-s.webp",
   "images/14364fxlyf5-74tr.webp": "images/14364fxlyf5-74tr-s.webp",
   "images/3f5r26ohht-5gob.webp": "images/3f5r26ohht-5gob-s.webp",
   "images/wqb4pyhpoy-7c5j.webp": "images/wqb4pyhpoy-7c5j-s.webp",
-  "images/17em8vc7efo-7qfn.webp": "images/17em8vc7efo-7qfn-s.webp",
   "images/yvnaglkpqj-9f4f.webp": "images/yvnaglkpqj-9f4f-s.webp",
   "images/1m4u2qifrni-3hdb.webp": "images/1m4u2qifrni-3hdb-s.webp",
   "images/h253lpi4v-90kz.webp": "images/h253lpi4v-90kz-s.webp",
@@ -602,6 +662,14 @@ window.SITE = {
   "images/y1efitzpm7-60sf.webp": "images/y1efitzpm7-60sf-s.webp",
   "images/1hgld4v1yil-7uo3.webp": "images/1hgld4v1yil-7uo3-s.webp",
   "images/vtay09bm30-3x8b.webp": "images/vtay09bm30-3x8b-s.webp",
-  "images/11lhk01doqh-3y8b.webp": "images/11lhk01doqh-3y8b-s.webp"
+  "images/11lhk01doqh-3y8b.webp": "images/11lhk01doqh-3y8b-s.webp",
+  "images/1t451gh3mwd-8q03.webp": "images/1t451gh3mwd-8q03-s.webp",
+  "images/w7lp3yo2ci-86ir.webp": "images/w7lp3yo2ci-86ir-s.webp",
+  "images/22xfg5al3cy-2u6n.webp": "images/22xfg5al3cy-2u6n-s.webp",
+  "images/n3c81oprrf-43tv.webp": "images/n3c81oprrf-43tv-s.webp",
+  "images/2cufwuf3z63-6dh3.webp": "images/2cufwuf3z63-6dh3-s.webp",
+  "images/3hwto9h8rg-3mxz.webp": "images/3hwto9h8rg-3mxz-s.webp",
+  "images/1lbsd5zh4cy-3evv.webp": "images/1lbsd5zh4cy-3evv-s.webp",
+  "images/282vamc8nap-3v6f.webp": "images/282vamc8nap-3v6f-s.webp"
  }
 };
