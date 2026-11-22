@@ -509,7 +509,7 @@ window.SITE = {
    "client": "Academic Project — University of Development Alternative",
    "date": "2024",
    "role": "Designer — Concept Development, Graphic Design, Illustration, Calendar Design & Structural Concept.",
-   "featured": true,
+   "featured": false,
    "cover": "images/1sdvx394itg-6hf7.webp",
    "images": [
     "images/1epkpi1uwqh-1qzr.webp",
