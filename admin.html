@@ -244,7 +244,7 @@ function items(o,k,fields,blank,label){
 var views={
  Site:function(m){
   var b=box('Site','Logo, your full name and footer text. The full name appears in the footer and About page.');
-  add(b,[sel(S.brand,'logoMode','Logo style',[['text','Name only'],['image','Uploaded logo only'],['both','Uploaded logo and name']]),fld(S.brand,'name','Logo word (e.g. SIAM)'),fld(S.brand,'tag','Outlined logo word (e.g. DESIGN)'),fld(S.brand,'full','Full name'),fld(S.home,'giant','Big footer word on the Home page'),fld(S.home,'marquee','Scrolling headline on the Home page'),fld(S.brand,'center','Centre text in the header (leave empty to hide)'),clr(S.brand,'accent','Accent colour (hover effects, numbers and highlights)','#e8643c')]);
+  add(b,[sel(S.brand,'logoMode','Logo style',[['text','Name only'],['image','Uploaded logo only'],['both','Uploaded logo and name']]),fld(S.brand,'name','Logo word (e.g. SIAM)'),fld(S.brand,'tag','Outlined logo word (e.g. DESIGN)'),fld(S.brand,'full','Full name'),fld(S.home,'giant','Big footer word on the Home page'),fld(S.home,'marquee','Scrolling headline on the Home page'),clr(S.brand,'accent','Accent colour (hover effects, numbers and highlights)','#e8643c')]);
   var lr=el('<div class="row"></div>');lr.appendChild(el('<label style="margin:0">Logo image</label>'));
   if(S.brand.logoImg)lr.appendChild(el('<img class="big" style="max-width:120px;background:#888;padding:6px;border-radius:8px" src="'+S.brand.logoImg+'" alt="">'));
   lr.appendChild(btn(S.brand.logoImg?'Replace logo':'Upload logo',function(){upload(0,function(r){S.brand.logoImg=r[0];if(!S.brand.logoMode||S.brand.logoMode==='text')S.brand.logoMode='image';save();draw()},null,{r:RL,d:0,png:1})}));
@@ -310,13 +310,17 @@ var views={
    r2.appendChild(btn('Remove',function(){if(confirm('Remove this logo?')){B.items.splice(i,1);save();draw()}},'del'));c.appendChild(r2);m.appendChild(c)});
   m.appendChild(btn('+ Add logos',function(){upload(1,function(x){x.forEach(function(d){B.items.push({name:'',img:d,url:''})});save();draw()},null,{r:RL,d:0,png:1,trim:1})},'pri'))},
  Projects:function(m){
-  var h=box('Projects','Open a project to edit it. Tick “Show on Home page” to feature it. Images are resized automatically.');h.appendChild(sel(S,'layout','Project layout (Home featured work and Work page)',[['grid','Neat grid (16:10 frames)'],['natural','Natural sizes (each cover shown exactly as cropped)']]));m.appendChild(h);
+  var h=box('Projects','Open a project to edit it. Tick “Show on Home page” to feature it. Images are resized automatically.');h.appendChild(sel(S,'layout','Project layout (Home featured work and Work page)',[['grid','Neat grid (16:10 frames)'],['natural','Natural sizes (each cover shown exactly as cropped)']]));m.appendChild(h);filtersBox(m);
   S.projects.forEach(function(p,i){
    var d=el('<details><summary><img alt="" src="'+(p.cover||'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==')+'"><span>'+(p.title||'Untitled')+'</span></summary><div class="inner"></div></details>'),n=d.lastChild;
    if(p._open)d.open=true;d.ontoggle=function(){p._open=d.open};
    add(n,[fld(p,'title','Title'),fld(p,'summary','Short line (shown on cards)'),fld(p,'desc','Overview (full description)',1),fld(p,'brief','The brief (optional)',1),fld(p,'process','The process (optional)',1),fld(p,'result','The result (optional)',1),lst(p,'tags','Tags (separate with commas)'),el('<div class="two"></div>')]);
    var g=n.lastChild;add(g,[fld(p,'client','Client'),fld(p,'date','Date'),fld(p,'role','Your role')]);
    n.appendChild(ck(p,'featured','Show on Home page (featured)'));
+   if((S.workFilters||[]).length){n.appendChild(el('<h3>Show on the Work page under</h3>'));var fg=el('<div class="row"></div>');
+    S.workFilters.forEach(function(f){var w=el('<label class="ck"><input type="checkbox"> '+AdminBrand.esc(f.t)+'</label>'),ci=w.firstChild;ci.checked=(p.filters||[]).indexOf(f.id)>-1;
+     ci.onchange=function(){p.filters=p.filters||[];var x=p.filters.indexOf(f.id);if(ci.checked&&x<0)p.filters.push(f.id);if(!ci.checked&&x>-1)p.filters.splice(x,1);save()};fg.appendChild(w)});
+    n.appendChild(fg);n.appendChild(el('<p class="hint">Not ticked under any title? The project still shows under “All”.</p>'))}
    n.appendChild(el('<h3>Cover image</h3>'));
    var c=el('<div class="row"></div>');
    if(p.cover)c.appendChild(el('<img class="big" src="'+p.cover+'" alt="">'));
@@ -360,7 +364,7 @@ var views={
   var r=el('<div class="row"></div>');r.appendChild(btn('Download content.js',dl,'pri'));
   r.appendChild(btn('Discard my edits and go back to the live version',function(){if(confirm('Discard all unpublished edits in this browser?'))DB.del('draft').then(function(){S=JSON.parse(JSON.stringify(window.SITE));fix();draw()})},'del'));b.appendChild(r);m.appendChild(b)}
 };
-function fix(){['services','cta','fx'].forEach(function(k){if(!S[k])S[k]=JSON.parse(JSON.stringify((window.SITE&&window.SITE[k])||DEF[k]))});S.services.items=S.services.items||[];S.services.steps=S.services.steps||[];S.brands=S.brands||{title:'Brands I’ve worked with',mono:false,items:[]};S.about=S.about||{};S.contact.socials=S.contact.socials||[]}
+function fix(){if(!S.workFilters)S.workFilters=JSON.parse(JSON.stringify((window.SITE&&window.SITE.workFilters)||[{id:'social',t:'Social Media Design'},{id:'print',t:'Print Design'},{id:'academic',t:'Academic Design'}]));if(S.workAllLabel==null)S.workAllLabel=(window.SITE&&window.SITE.workAllLabel)||'All';['services','cta','fx'].forEach(function(k){if(!S[k])S[k]=JSON.parse(JSON.stringify((window.SITE&&window.SITE[k])||DEF[k]))});S.services.items=S.services.items||[];S.services.steps=S.services.steps||[];S.brands=S.brands||{title:'Brands I’ve worked with',mono:false,items:[]};S.about=S.about||{};S.contact.socials=S.contact.socials||[]}
 function cu(u){u=(u||'').trim();return /^#.*[.\/:@]/.test(u)?u.slice(1):u}
 function clean(){var D=JSON.parse(JSON.stringify(S));D.projects.forEach(function(p){delete p._open});D.contact.socials.forEach(function(k){k.u=cu(k.u)});((D.brands||{}).items||[]).forEach(function(k){k.url=cu(k.url)});return D}
 function out(){return 'window.SITE = '+JSON.stringify(clean(),null,1)+';\n'}
@@ -477,6 +481,20 @@ function speedBox(m){
    optOne(u).then(function(q){res.push(q);next()}).catch(function(){res.push({url:u,before:0,after:0,newData:null,thumb:null,tsize:0});next()})})()},''));
  r.appendChild(go);b.appendChild(r);b.appendChild(s);
  b.appendChild(el('<p class="hint">New uploads are shrunk and saved as WebP automatically, with no action needed. Before publishing, this tool downloads a backup copy of your content.</p>'));
+ m.appendChild(b)}
+function slugify(t){return String(t).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'group'}
+function filtersBox(m){
+ var b=box('Work filter bar','The row of titles above the projects on the Work page (for example All, Social Media Design, Print Design). Visitors click a title to see only those projects. Add, rename, reorder or remove titles here, then tick which projects belong under each title inside every project below.');
+ var a=el('<div><label>Name of the first button (shows every project)</label><input type="text" maxlength="30"></div>'),ai=a.lastChild;ai.value=S.workAllLabel||'All';ai.oninput=function(){S.workAllLabel=ai.value;save()};b.appendChild(a);
+ S.workFilters.forEach(function(f,i){
+  var r=el('<div class="row"></div>'),t=el('<input type="text" maxlength="40" style="flex:1;min-width:160px">');t.value=f.t;t.oninput=function(){f.t=t.value;save()};t.onchange=function(){draw()};
+  r.appendChild(t);r.appendChild(btn('↑',function(){moveList(S.workFilters,i,-1)}));r.appendChild(btn('↓',function(){moveList(S.workFilters,i,1)}));
+  r.appendChild(btn('✕',function(){S.workFilters.splice(i,1);S.projects.forEach(function(p){p.filters=(p.filters||[]).filter(function(x){return x!==f.id})});save();draw()},'del'));b.appendChild(r)});
+ var ar=el('<div class="row"></div>'),ni=el('<input type="text" maxlength="40" placeholder="New title, e.g. Packaging Design" style="flex:1;min-width:160px">');
+ function addF(){var v=ni.value.trim();if(!v)return;var base=slugify(v),id=base,n=2;while(S.workFilters.some(function(f){return f.id===id}))id=base+'-'+n++;S.workFilters.push({id:id,t:v});save();draw()}
+ ni.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();addF()}};
+ ar.appendChild(ni);ar.appendChild(btn('+ Add title',addF,'pri'));b.appendChild(ar);
+ b.appendChild(el('<p class="hint">“All” is always shown first. A project that is not ticked under any title still appears under “All”.</p>'));
  m.appendChild(b)}
 function brandBox(m){
  var cur=window.AdminBrand.current(),b=box('Panel header','The name or logo shown at the top of this editor and on the sign-in page. Show it as text, or upload your own logo.');
