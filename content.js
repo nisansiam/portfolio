@@ -275,7 +275,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Develop a cohesive brand guideline that defines Younic Home's visual identity and provides clear design standards for consistent brand communication across different platforms and applications.",
    "process": "Organised and documented the brand's visual elements, including logo applications, colour systems, typography, layout principles, and supporting graphic elements. Developed visual examples and usage guidelines to demonstrate how the identity should be applied across different communication materials.",
-   "result": "A structured brand guideline that provides a unified visual direction for Younic Home, helping maintain consistency across marketing, digital communication, and future brand applications."
+   "result": "A structured brand guideline that provides a unified visual direction for Younic Home, helping maintain consistency across marketing, digital communication, and future brand applications.",
+   "filters": [
+    "brand-identity"
+   ]
   },
   {
    "id": "younic-home",
@@ -310,7 +313,10 @@ window.SITE = {
     "images/173ebtsbkw5-50qn.webp",
     "images/2558k3f8fvj-5nmf.webp"
    ],
-   "color": "p1"
+   "color": "p1",
+   "filters": [
+    "social"
+   ]
   },
   {
    "id": "seito-kashikoi",
@@ -346,7 +352,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Develop engaging social media content to promote school admissions, communicate recruitment opportunities, celebrate special occasions, and strengthen the school's digital presence.",
    "process": "Created campaign-specific visual concepts using the school's brand identity, colour palette, and typography. Each design was tailored to its communication purpose, balancing a child-friendly aesthetic with clear information hierarchy and professional presentation.",
-   "result": "A versatile collection of social media creatives supporting the school's admission campaigns, recruitment activities, and occasion-based communications while maintaining a consistent visual identity."
+   "result": "A versatile collection of social media creatives supporting the school's admission campaigns, recruitment activities, and occasion-based communications while maintaining a consistent visual identity.",
+   "filters": [
+    "social"
+   ]
   },
   {
    "id": "color-craze",
@@ -382,7 +391,10 @@ window.SITE = {
    "color": "p3",
    "brief": "Create visually engaging social media content that strengthens Younic Limited's corporate presence, communicates important announcements, celebrates meaningful occasions, and maintains consistent brand communication across digital platforms.",
    "process": "Developed individual creative concepts based on the purpose and message of each post. Applied the company's visual identity through typography, colour coordination, layout composition, and supporting graphics, ensuring that each design remained distinctive while retaining a consistent corporate look.",
-   "result": "A diverse collection of corporate social media creatives covering seasonal celebrations, cultural observances, appreciation posts, company announcements, and recruitment communication."
+   "result": "A diverse collection of corporate social media creatives covering seasonal celebrations, cultural observances, appreciation posts, company announcements, and recruitment communication.",
+   "filters": [
+    "social"
+   ]
   },
   {
    "id": "shorodindu",
@@ -413,7 +425,10 @@ window.SITE = {
    "color": "p4",
    "brief": "Create visually compelling promotional posters that capture the essence of each production and musical event while attracting audience attention and communicating essential event information.",
    "process": "Explored individual creative directions for each event, developing visual concepts through typography, image selection, layout composition, and graphic treatments. Each poster was designed to reflect the character and atmosphere of its respective performance.",
-   "result": "Three distinctive promotional posters representing two theatre productions and one live music concert, each with its own visual identity and communication approach."
+   "result": "Three distinctive promotional posters representing two theatre productions and one live music concert, each with its own visual identity and communication approach.",
+   "filters": [
+    "academic"
+   ]
   },
   {
    "id": "p1794198784481",
@@ -458,7 +473,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Create a well-structured and visually engaging magazine that communicates the brand's identity, presents relevant content, and provides readers with an enjoyable editorial experience.",
    "process": "Worked on page layouts, typography, image placement, colour coordination, and content hierarchy. Developed a consistent editorial style that balances readability with visual interest while incorporating Younic Home's brand elements throughout the publication.",
-   "result": "A cohesive branded publication that extends Younic Home's visual identity into editorial design through structured layouts and consistent visual communication."
+   "result": "A cohesive branded publication that extends Younic Home's visual identity into editorial design through structured layouts and consistent visual communication.",
+   "filters": [
+    "print"
+   ]
   },
   {
    "id": "p1794942657056",
@@ -489,7 +507,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Design informative and visually appealing brochures that communicate each brand's services, offerings, and key information while maintaining consistency with their individual visual identities.",
    "process": "Developed layouts and visual compositions tailored to each brand's communication needs. Worked with typography, colour systems, imagery, and content hierarchy to organise information effectively and create a cohesive reading experience.",
-   "result": "A set of brand-aligned promotional brochures that present essential information through structured layouts and clear visual communication, serving both marketing and informational purposes."
+   "result": "A set of brand-aligned promotional brochures that present essential information through structured layouts and clear visual communication, serving both marketing and informational purposes.",
+   "filters": [
+    "print"
+   ]
   },
   {
    "id": "p1794942849552",
@@ -528,7 +549,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Explore an unconventional approach to calendar design by combining visual creativity, structural thinking, and functional usability.",
    "process": "Developed the concept around the anatomy of a spider, translating its distinctive form into a functional calendar structure. Explored the relationship between shape, materials, and construction to create a design that moves beyond traditional calendar formats.",
-   "result": "An experimental calendar concept that combines graphic design and physical form, transforming a familiar everyday object into an interactive visual and functional piece."
+   "result": "An experimental calendar concept that combines graphic design and physical form, transforming a familiar everyday object into an interactive visual and functional piece.",
+   "filters": [
+    "art-experimental"
+   ]
   },
   {
    "id": "p1795239983879",
@@ -559,7 +583,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Design a branded calendar that communicates the school's identity while providing a practical and visually appealing format for everyday use.",
    "process": "Developed the calendar layout around the school's visual identity, incorporating its colour palette, typography, and supporting graphic elements. Focused on information hierarchy, readability, and layout consistency to balance functionality with visual appeal.",
-   "result": "A branded calendar that brings Seito Kashikoi School's visual identity into a functional printed format, combining organised information with cohesive visual communication."
+   "result": "A branded calendar that brings Seito Kashikoi School's visual identity into a functional printed format, combining organised information with cohesive visual communication.",
+   "filters": [
+    "print"
+   ]
   },
   {
    "id": "p1795240097682",
@@ -590,7 +617,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Create impactful and informative banners for Younic Home to promote its services, communicate important announcements, and support marketing activities across different placements.",
    "process": "Developed layouts based on individual communication objectives, incorporating brand colours, typography, imagery, and graphic elements. Focused on readability, visual hierarchy, and composition to ensure effective communication across larger display formats.",
-   "result": "A collection of branded banners supporting Younic Home's promotional and communication needs through consistent visual presentation and clear messaging."
+   "result": "A collection of branded banners supporting Younic Home's promotional and communication needs through consistent visual presentation and clear messaging.",
+   "filters": [
+    "social"
+   ]
   },
   {
    "id": "p1795244923893",
@@ -625,7 +655,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Extend Younic Home's visual identity across essential business materials, creating a cohesive set of branded applications that support everyday operations and professional communication.",
    "process": "Applied the established brand guidelines across different formats, adapting layouts, typography, colours, and information hierarchy to suit the purpose of each material. Focused on balancing brand consistency with practical functionality.",
-   "result": "A cohesive collection of branded business materials that brings consistency to Younic Home's everyday communication, documentation, identification, and service-related information."
+   "result": "A cohesive collection of branded business materials that brings consistency to Younic Home's everyday communication, documentation, identification, and service-related information.",
+   "filters": [
+    "brand-identity"
+   ]
   },
   {
    "id": "p1795246296182",
@@ -660,7 +693,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Develop practical and visually consistent brand applications that extend Shordindu's identity into packaging, retail materials, and everyday business communication.",
    "process": "Adapted the brand's visual elements across different physical formats, exploring layout composition, typography, colour application, and packaging presentation. Focused on maintaining visual consistency while considering the functional requirements of each application.",
-   "result": "A cohesive collection of branded materials that extends Shordindu's identity beyond digital and visual communication into tangible customer-facing experiences."
+   "result": "A cohesive collection of branded materials that extends Shordindu's identity beyond digital and visual communication into tangible customer-facing experiences.",
+   "filters": [
+    "brand-identity"
+   ]
   },
   {
    "id": "p1795246750537",
@@ -696,7 +732,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Extend the school's visual identity across essential academic and administrative materials, ensuring a cohesive and professional appearance.",
    "process": "Adapted the school's colours, typography, and visual elements to suit each format, with attention to layout, readability, and information hierarchy.",
-   "result": "A consistent set of branded materials supporting the school's everyday communication and administrative needs."
+   "result": "A consistent set of branded materials supporting the school's everyday communication and administrative needs.",
+   "filters": [
+    "brand-identity"
+   ]
   },
   {
    "id": "p1795260760313",
@@ -739,7 +778,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Create well-organised academic documents that communicate student assessment information and curriculum details while maintaining a consistent school identity.",
    "process": "Developed document layouts using the school's typography, colours, and visual elements. Focused on information hierarchy, structured sections, typography, and readability.",
-   "result": "A cohesive set of academic documents that combines the school's visual identity with functional and organised information presentation."
+   "result": "A cohesive set of academic documents that combines the school's visual identity with functional and organised information presentation.",
+   "filters": [
+    "print"
+   ]
   },
   {
    "id": "p1795261299750",
@@ -772,7 +814,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Personal creative exploration focused on developing digital illustration skills and experimenting with different visual styles and portrait techniques.",
    "process": "Explored different subjects, compositions, colour combinations, and digital techniques to develop individual artworks with distinct visual characteristics.",
-   "result": "A collection of personal artworks showcasing digital illustration, portraiture, and creative experimentation."
+   "result": "A collection of personal artworks showcasing digital illustration, portraiture, and creative experimentation.",
+   "filters": [
+    "art-experimental"
+   ]
   },
   {
    "id": "p1795261389831",
@@ -803,7 +848,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Personal artistic practice focused on improving portrait drawing skills, observation, proportion, and realistic pencil rendering.",
    "process": "Developed each portrait through observational drawing, building facial structure, refining proportions, and gradually adding depth through pencil shading and tonal contrast.",
-   "result": "A collection of traditional pencil portraits showcasing drawing skills, attention to detail, and an understanding of light, shadow, and facial anatomy."
+   "result": "A collection of traditional pencil portraits showcasing drawing skills, attention to detail, and an understanding of light, shadow, and facial anatomy.",
+   "filters": [
+    "art-experimental"
+   ]
   },
   {
    "id": "p1795261464305",
@@ -840,7 +888,10 @@ window.SITE = {
    "color": "p2",
    "brief": "Develop observational drawing skills through the study of everyday objects, focusing on proportion, composition, perspective, light, and tonal values.",
    "process": "Studied object shapes, arrangements, proportions, and light sources, then used drawing and shading techniques to represent volume, texture, and depth.",
-   "result": "A collection of academic drawings demonstrating observational skills and an understanding of form, composition, and tonal contrast."
+   "result": "A collection of academic drawings demonstrating observational skills and an understanding of form, composition, and tonal contrast.",
+   "filters": [
+    "art-experimental"
+   ]
   },
   {
    "id": "p1795325550358",
@@ -872,9 +923,39 @@ window.SITE = {
    "color": "p2",
    "brief": "Develop attractive and commercially suitable textile patterns for three-piece and saree collections, considering colour, repeat patterns, and the overall look of each garment.",
    "process": "Explored pattern concepts, motifs, colour palettes, and compositions, adapting each design to suit the intended garment and fabric application.",
-   "result": "A collection of textile designs for three-piece sets and sarees, demonstrating versatility in pattern development and fashion-focused visual design."
+   "result": "A collection of textile designs for three-piece sets and sarees, demonstrating versatility in pattern development and fashion-focused visual design.",
+   "filters": [
+    "textile-design"
+   ]
   }
  ],
+ "workFilters": [
+  {
+   "id": "brand-identity",
+   "t": "Brand Identity"
+  },
+  {
+   "id": "social",
+   "t": "Social Media & Marketing"
+  },
+  {
+   "id": "print",
+   "t": "Print & Editorial"
+  },
+  {
+   "id": "academic",
+   "t": "Posters & Events"
+  },
+  {
+   "id": "art-experimental",
+   "t": "Art & Experimental"
+  },
+  {
+   "id": "textile-design",
+   "t": "Textile Design"
+  }
+ ],
+ "workAllLabel": "All",
  "thumbs": {
   "images/2dis9ayls42-45jz.webp": "images/2dis9ayls42-45jz-s.webp",
   "images/f9k8dy3kzm-26p3.webp": "images/f9k8dy3kzm-26p3-s.webp",
