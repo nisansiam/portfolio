@@ -329,7 +329,7 @@ window.SITE = {
    "client": "Seito Kashikoi School",
    "date": "2026",
    "role": "Graphic Designer — Creative Concept Development, Visual Design, Social Media Creatives, Admission & Recruitment Campaign Design.",
-   "featured": true,
+   "featured": false,
    "cover": "images/yvnaglkpqj-9f4f.webp",
    "images": [
     "images/1m4u2qifrni-3hdb.webp",
@@ -792,7 +792,7 @@ window.SITE = {
    "client": "Personal Project",
    "date": "Various Years",
    "role": "Artist — Portrait Drawing, Pencil Sketching, Shading & Traditional Illustration",
-   "featured": true,
+   "featured": false,
    "cover": "images/adj8ve2rhs-3jvj.webp",
    "images": [
     "images/adj8ve2rhs-3jvj.webp",
@@ -823,7 +823,7 @@ window.SITE = {
    "client": "Academic Project — University of Development Alternative",
    "date": "Various Years",
    "role": "Student Artist — Observational Drawing, Composition, Sketching & Shading",
-   "featured": true,
+   "featured": false,
    "cover": "images/1xwqwh2iycu-14an.webp",
    "images": [
     "images/1xwqwh2iycu-14an.webp",
@@ -841,6 +841,38 @@ window.SITE = {
    "brief": "Develop observational drawing skills through the study of everyday objects, focusing on proportion, composition, perspective, light, and tonal values.",
    "process": "Studied object shapes, arrangements, proportions, and light sources, then used drawing and shading techniques to represent volume, texture, and depth.",
    "result": "A collection of academic drawings demonstrating observational skills and an understanding of form, composition, and tonal contrast."
+  },
+  {
+   "id": "p1795325550358",
+   "title": "Textile Print Design for Color Craze",
+   "summary": "Textile print designs developed for three-piece sets and sarees, combining decorative patterns with wearable fashion aesthetics.",
+   "desc": "A collection of textile print designs created during my time at Color Craze, featuring patterns developed for women's three-piece sets and sarees. The designs explore different motifs, colour combinations, and pattern arrangements, balancing decorative appeal with the visual requirements of fashion textiles.",
+   "tags": [
+    "Textile Design",
+    "Textile Print",
+    "Fashion Print Design",
+    "Saree Design",
+    "Three-Piece Design",
+    "Pattern Design",
+    "Surface Pattern Design",
+    "Digital Textile Design",
+    "Fashion Graphics"
+   ],
+   "client": "Color Craze",
+   "date": "2024–2025",
+   "role": "Digital Artist — Textile Print Design, Pattern Development, Colour Exploration & Garment Print Design",
+   "featured": true,
+   "cover": "images/1s78tl4dz4t-5iaj.webp",
+   "images": [
+    "images/1s78tl4dz4t-5iaj.webp",
+    "images/164kfj7laqe-4bxr.webp",
+    "images/1m8jcf2xh4u-347b.webp",
+    "images/vllkuyi57u-4r5v.webp"
+   ],
+   "color": "p2",
+   "brief": "Develop attractive and commercially suitable textile patterns for three-piece and saree collections, considering colour, repeat patterns, and the overall look of each garment.",
+   "process": "Explored pattern concepts, motifs, colour palettes, and compositions, adapting each design to suit the intended garment and fabric application.",
+   "result": "A collection of textile designs for three-piece sets and sarees, demonstrating versatility in pattern development and fashion-focused visual design."
   }
  ],
  "thumbs": {
@@ -954,6 +986,10 @@ window.SITE = {
   "images/3hw6p5x3ea-34qf.webp": "images/3hw6p5x3ea-34qf-s.webp",
   "images/c2r4ooezez-4czj.webp": "images/c2r4ooezez-4czj-s.webp",
   "images/1o4yzle71hc-34dj.webp": "images/1o4yzle71hc-34dj-s.webp",
-  "images/htjztx447l-3mq3.webp": "images/htjztx447l-3mq3-s.webp"
+  "images/htjztx447l-3mq3.webp": "images/htjztx447l-3mq3-s.webp",
+  "images/1s78tl4dz4t-5iaj.webp": "images/1s78tl4dz4t-5iaj-s.webp",
+  "images/164kfj7laqe-4bxr.webp": "images/164kfj7laqe-4bxr-s.webp",
+  "images/1m8jcf2xh4u-347b.webp": "images/1m8jcf2xh4u-347b-s.webp",
+  "images/vllkuyi57u-4r5v.webp": "images/vllkuyi57u-4r5v-s.webp"
  }
 };
