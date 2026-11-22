@@ -76,7 +76,7 @@ window.SITE = {
   "teaserText": "I'm Aflahal Muminun Siam — a graphic designer driven by curiosity and a passion for visual communication. I work across branding, marketing, editorial and digital design, turning ideas into thoughtful visual experiences. I believe good design is more than aesthetics; it's about communicating ideas with clarity, purpose and creativity.",
   "featTitle": "Selected *work*",
   "featText": "A collection of projects, ideas and visual explorations.",
-  "marquee": "Showcasing creative potential with Siam",
+  "marquee": "Ideas into Visual Experiences",
   "giant": "Portfolio",
   "floatSpeed": 3,
   "boxOpacity": 0.4,
